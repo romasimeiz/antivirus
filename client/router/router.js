@@ -6,21 +6,21 @@ import Login from '../containers/Login';
 import Auth from '../containers/Auth';
 import Home from '../containers/Home';
 
-function requireAuth(nextState, replace) {
+requireAuth = (nextState, replace) => {
     if (localStorage.getItem('user') === null) {
         replace({
             pathname: '/',
             state: {nextPathname: nextState.location.pathname}
         })
     }
-}
+};
 
 export default (
     <Router>
         <App>
             <Switch>
                 <Route exact path='/' component={Login}/>
-                <Auth>
+                <Auth onEnter="requireAuth">
                     <Route path='/home' component={Home}/>
                 </Auth>
             </Switch>
