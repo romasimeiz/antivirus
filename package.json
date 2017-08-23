@@ -38,6 +38,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.5",
     "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.3.0",
     "file-loader": "^0.11.2",
     "node-sass": "^4.5.3",
     "redux-devtools-extension": "^2.13.2",
