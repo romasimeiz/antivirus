@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
-import Header from '../Common/Headerr'
+import Header from '../Common/Header';
 
 
 export default class App extends Component {

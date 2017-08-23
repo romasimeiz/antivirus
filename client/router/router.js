@@ -6,14 +6,14 @@ import Login from '../containers/Login';
 import Auth from '../containers/Auth';
 import Home from '../containers/Home';
 
-requireAuth = (nextState, replace) => {
+/*requireAuth = (nextState, replace) => {
     if (localStorage.getItem('user') === null) {
         replace({
             pathname: '/',
             state: {nextPathname: nextState.location.pathname}
         })
     }
-};
+};*/
 
 export default (
     <Router>
