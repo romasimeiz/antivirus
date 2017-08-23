@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import './style.scss';
 import PropTypes from 'prop-types';
 
-class App extends Component {
+export default class App extends Component {
     render() {
         return (
             <div>
                 <div className="main-container">
-                    <h1>here</h1>
                     {this.props.children}
                 </div>
             </div>
@@ -15,6 +14,5 @@ class App extends Component {
     }
 }
 App.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.element
 };
-export default App;
