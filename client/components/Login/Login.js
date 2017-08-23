@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field} from 'redux-form';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import './login.scss';
 
@@ -21,20 +21,18 @@ export default class Login extends Component {
     render() {
         const {handleSubmit, handleFormSubmit} = this.props;
         return (
-            <div className="login-page">
-                <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <div className="middle-box text-center loginscreen animated fadeInDown">
+                <form onSubmit={handleSubmit(handleFormSubmit)} className="m-t">
                     {/*{this.renderAlert()}*/}
-                    <div>
-                        <label>Email</label>
-                        <Field name="username" className="form-control" component="input" type="text"/>
+                    <div className="form-group">
+                        <Field name="username" className="form-control" component="input" type="text" placeholder="Username"/>
                     </div>
-                    <div>
-                        <label>Password</label>
-                        <Field name="password" className="form-control" component="input" type="password"/>
+                    <div  className="form-group">
+                        <Field name="password" className="form-control" component="input" type="password" placeholder="Password"/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <button type="submit" className="btn btn-primary block full-width m-b">Login</button>
                 </form>
-                {/*<Link className="forgot-pass-link" to="/forgot-password">Forgot Password?</Link>*/}
+                <Link className="forgot-pass-link" to="/forgot-password">Forgot Password?</Link>
             </div>
         );
     }

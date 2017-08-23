@@ -20,7 +20,7 @@ export default (
         <App>
             <Switch>
                 <Route exact path='/' component={Login}/>
-                <Auth>
+                <Auth onEnter="requireAuth">
                     <Route path='/home' component={Home}/>
                 </Auth>
             </Switch>
