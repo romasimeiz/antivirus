@@ -5,7 +5,7 @@ import App from '../containers/App';
 import Login from '../containers/Login';
 import Auth from '../containers/Auth';
 import Home from '../containers/Home';
-import { ConnectedRouter } from 'react-router-redux'
+import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
 
 // requireAuth = (nextState, replace) => {

@@ -1,13 +1,12 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Row({className, name}) {
-    {console.log('InRows', typeof(name)) }
-    {console.log('InRows', typeof(className)) }
-    
+    console.log('InRows', name);
+    console.log('InRows', typeof(className));
     return (
         <li>
-            <NavLink  activeClassName="active" to={name.toLowerCase()} >
+            <NavLink activeClassName="active" to={name.toLowerCase()}>
                 <i className={className} aria-hidden="true"/>
                 {name}
             </NavLink>
