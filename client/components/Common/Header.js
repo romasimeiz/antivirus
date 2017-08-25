@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 
 export default class Header extends Component {
     render() {
@@ -15,7 +15,7 @@ export default class Header extends Component {
                     </div>
                     <ul className="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
+                            <a onClick={this.props.handleLogout}>
                                 <i className="fa fa-sign-out" /> Log out
                             </a>
                         </li>

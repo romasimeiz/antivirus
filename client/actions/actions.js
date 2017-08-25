@@ -7,6 +7,12 @@ export function receiveLogin(user) {
     }
 }
 
+export function logout() {
+    return {
+        type: con.LOGOUT_REQUEST,
+    }
+}
+
 export function doLogin(creds) {
     return (dispatch) =>  dispatch(receiveLogin(creds));
 }

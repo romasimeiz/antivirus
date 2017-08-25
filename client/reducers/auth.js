@@ -39,6 +39,11 @@ function auth(state = initialState, action) {
             return Object.assign({}, state, {
                 errorMessage: action.errorMessage
             });
+        case con.LOGOUT_REQUEST:
+            console.log('working reducer');
+            return Object.assign({}, state, {
+                user: {name: 'guest'}
+            });
         default:
             return state
     }
