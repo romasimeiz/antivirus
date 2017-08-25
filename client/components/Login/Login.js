@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 import './login.scss';
 
-
-
 export default class Login extends Component {
 
     // renderAlert() {
@@ -19,6 +17,7 @@ export default class Login extends Component {
     // }
 
     render() {
+        console.log(this.props)
         const {handleSubmit, handleFormSubmit} = this.props;
         return (
             <div className="middle-box text-center loginscreen animated fadeInDown">
