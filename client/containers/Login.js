@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux';
 import * as AppActions from '../actions/actions';
 import Login from '../components/Login/Login';
 import { reduxForm } from 'redux-form';
-import { withRouter } from 'react-router';
-import { push, ConnectedRouter } from  'react-router-redux';
+import { push } from  'react-router-redux';
 
 const LoginContainer = reduxForm({
     form: 'login',
@@ -18,13 +17,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(AppActions, dispatch, history),
+        actions: bindActionCreators(AppActions, dispatch),
         handleFormSubmit(formProps) {
-            dispatch(push('home'));
             dispatch(AppActions.receiveLogin(formProps));
-
+            dispatch(push('/home'));
         }
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
