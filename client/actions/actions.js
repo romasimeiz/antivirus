@@ -1,3 +1,12 @@
+import * as con from '../constants/constants';
+
+export function receiveLogin(user) {
+    return {
+        type: con.LOGIN_SUCCESS,
+        user
+    }
+}
+
 export function doLogin(creds) {
- console.log('123')
+    return (dispatch) =>  dispatch(receiveLogin(creds));
 }
