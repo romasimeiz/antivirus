@@ -7,15 +7,12 @@ import './style.scss';
 export default class Auth extends Component {
 
     render() {
-        const {} = this.props;
-        const fields = [ {name:'Sites', className: 'fa fa-diamond'}, {name:'Options', className: 'fa fa-laptop'} ];
-        const user = {name: 'John Doe', photo: '/assets/img/profile_small.jpg'}
-        const {handleLogout} = this.props;
+        const {handleLogout, auth} = this.props;
         return (
             <div className="viewport">
-                <Sidebar user={user} fields={fields} />
-                <div id="page-wrapper" className="gray-bg dashbard-1" style={{minHeight: 547}}>
-                    <Header handleLogout={handleLogout} />
+                <Sidebar user={auth.user} fields={auth.sideBar}/>
+                <div id="page-wrapper" className="gray-bg dashbard-1">
+                    <Header handleLogout={handleLogout}/>
                     <div className="body">
                         <h1>Auth</h1>
                         {this.props.children}

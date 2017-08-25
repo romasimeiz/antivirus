@@ -40,7 +40,6 @@ function auth(state = initialState, action) {
                 errorMessage: action.errorMessage
             });
         case con.LOGOUT_REQUEST:
-            console.log('working reducer');
             return Object.assign({}, state, {
                 user: {name: 'guest'}
             });

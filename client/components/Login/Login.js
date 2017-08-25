@@ -17,7 +17,6 @@ export default class Login extends Component {
     // }
 
     render() {
-        console.log(this.props)
         const {handleSubmit, handleFormSubmit} = this.props;
         return (
             <div className="middle-box text-center loginscreen animated fadeInDown">

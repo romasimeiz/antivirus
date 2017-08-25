@@ -6,6 +6,8 @@ import {push} from "react-router-redux"
 import Auth from '../components/auth';
 
 const mapStateToProps = state => ({
+    auth: state.auth,
+    sideBar : state.auth.sideBar
 });
 
 const mapDispatchToProps = (dispatch) => {

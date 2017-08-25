@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 import Home from '../components/Home/Home';
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = {
+};
 
 const mapDispatchToProps = {
 };
