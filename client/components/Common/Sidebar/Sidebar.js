@@ -16,11 +16,10 @@ export default class Sidebar extends Component {
 
     render() {
         return (
-            <div className="sidebar">
-                <Header url={this.props.user.photo} name={this.props.user.name}/>
-                <div className="col-xs-12">
-                    <ul>
-                        <div className="sidebar-header">PAGES</div>
+            <nav className="navbar-default navbar-static-side" role="navigation">
+                <div className="sidebar-collapse">
+                    <ul className="nav metismenu" id="side-menu">
+                        <Header url={this.props.user.photo} name={this.props.user.name}/>
                         {
                             this.props.fields.map((field, index) => {
                                 return (
@@ -34,7 +33,7 @@ export default class Sidebar extends Component {
                         }
                     </ul>
                 </div>
-            </div>
+            </nav>
         );
     }
 }

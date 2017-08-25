@@ -13,10 +13,12 @@ export default class Auth extends Component {
         return (
             <div className="viewport">
                 <Sidebar user={user} fields={fields} />
-                <Header />
-                <div className="body">
-                    <h1>Auth</h1>
-                    {this.props.children}
+                <div id="page-wrapper" className="gray-bg dashbard-1" style={{minHeight: 547}}>
+                    <Header />
+                    <div className="body">
+                        <h1>Auth</h1>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );

@@ -8,14 +8,18 @@ export default class GridHeader extends Component {
 
     render() {
         return (
-            <div className="avatar col-xs-12">
-                <div className="col-xs-4">
-                    <img width="40" height="40" className="img-circle" src={this.props.url}/>
+            <li className="nav-header">
+                <div className="dropdown profile-element">
+                    <span>
+                        <img width="40" height="40" className="img-circle" src={this.props.url}/>
+                    </span>
+                    <a data-toggle="dropdown" className="dropdown-toggle" href="#">
+                        <span className="clear">
+                            <span className="block m-t-xs"> <strong className="font-bold">{this.props.name}</strong></span>
+                        </span>
+                    </a>
                 </div>
-                <div className="name col-xs-4">
-                    {this.props.name}
-                </div>
-            </div>
+            </li>
         );
     }
 }
