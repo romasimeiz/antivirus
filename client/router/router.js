@@ -5,18 +5,22 @@ import App from '../containers/App';
 import Login from '../containers/Login';
 import Auth from '../containers/Auth';
 import Home from '../containers/Home';
+import createBrowserHistory from 'history/createBrowserHistory'
+import { syncHistoryWithStore} from 'react-router-redux'
+import store from '../store';
+// requireAuth = (nextState, replace) => {
+//     if (localStorage.getItem('user') === null) {
+//         replace({
+//             pathname: '/',
+//             state: {nextPathname: nextState.location.pathname}
+//         })
+//     }
+// };
 
-requireAuth = (nextState, replace) => {
-    if (localStorage.getItem('user') === null) {
-        replace({
-            pathname: '/',
-            state: {nextPathname: nextState.location.pathname}
-        })
-    }
-};
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 export default (
-    <Router>
+    <Router history={history}>
         <App>
             <Switch>
                 <Route exact path='/' component={Login}/>
