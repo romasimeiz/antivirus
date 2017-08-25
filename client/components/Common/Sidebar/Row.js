@@ -1,13 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {NavLink} from 'react-router-dom';
 
 export default function Row({className, name}) {
+    {console.log('InRows', typeof(name)) }
+    {console.log('InRows', typeof(className)) }
+    
     return (
         <li>
-            <Link  activeClassName="active" to={name.toLowerCase()} >
+            <NavLink  activeClassName="active" to={name.toLowerCase()} >
                 <i className={className} aria-hidden="true"/>
                 {name}
-            </Link>
+            </NavLink>
         </li>
     )
 }
