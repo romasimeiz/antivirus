@@ -18,7 +18,24 @@ const initialState = {
             name: 'Clients',
             className: 'fa fa-user-o'
         }
-    ]
+    ],
+    clientsGrid : [
+        {
+            name : 'Name',
+            className : 'table-name',
+            mapping : 'name'
+        },
+        {
+            name : 'Email',
+            className : '',
+            mapping : 'ClientEmail'
+        },
+        {
+            name : 'Phone',
+            className : '',
+            mapping : 'phone'
+        }
+    ],
 };
 
 /**

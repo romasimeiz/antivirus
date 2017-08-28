@@ -1,9 +1,9 @@
-import Header from './Header';
+import SidebarHeader from './SidebarHeader';
 import Sidebar from './Sidebar';
 
-export { Header };
+export { SidebarHeader };
 export { Sidebar };
 
 export default Object.assign(Sidebar, {
-    Header
+    SidebarHeader
 });

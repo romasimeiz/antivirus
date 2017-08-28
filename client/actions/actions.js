@@ -14,5 +14,5 @@ export function logout() {
 }
 
 export function doLogin(creds) {
-    return (dispatch) =>  dispatch(receiveLogin(creds));
+    return (dispatch) => dispatch(receiveLogin(creds));
 }

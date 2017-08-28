@@ -1,6 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class GridHeader extends Component {
+export default class SidebarHeader extends Component {
     static propTypes = {
         url: PropTypes.string,
         name: PropTypes.string
@@ -15,13 +16,17 @@ export default class GridHeader extends Component {
                     </span>
                     <a data-toggle="dropdown" className="dropdown-toggle" href="#">
                         <span className="clear">
-                            <span className="block m-t-xs"> <strong className="font-bold">{this.props.name}</strong></span>
+                            <span className="block m-t-xs"> <strong
+                                className="font-bold">{this.props.name}</strong></span>
                         </span>
                     </a>
+                </div>
+                <div className="logo-element">
+                    AV
                 </div>
             </li>
         );
     }
 }
 
-GridHeader.displayName = 'GridHeader';
+SidebarHeader.displayName = 'SidebarHeader';

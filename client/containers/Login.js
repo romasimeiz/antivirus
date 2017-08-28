@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import * as AppActions from '../actions/actions';
 import Login from '../components/Login/Login';
 import { reduxForm } from 'redux-form';
-import { push } from  'react-router-redux';
+import { push } from 'react-router-redux';
 
 const LoginContainer = reduxForm({
     form: 'login',

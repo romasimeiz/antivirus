@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-
+import React, { Component } from 'react';
+import Grid from '../Common/Grid';
 import './home.scss';
 
 export default class Home extends Component {
@@ -7,7 +7,7 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <h1>Home</h1>
+                <Grid  fields={this.props.fields} data={[]}/>
             </div>
         );
     }
