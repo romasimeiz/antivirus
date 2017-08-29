@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as AppActions from '../actions/actions';
-import Login from '../components/Login/Login';
+import Login from '../components/Login';
 import { reduxForm } from 'redux-form';
 import { push } from 'react-router-redux';
 
@@ -19,8 +19,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators(AppActions, dispatch),
         handleFormSubmit(formProps) {
-            dispatch(AppActions.receiveLogin(formProps));
-            dispatch(push('/home'));
+            dispatch(AppActions.doLogin(formProps));
         }
     };
 };

@@ -5,6 +5,7 @@ import App from '../containers/App';
 import Login from '../containers/Login';
 import Auth from '../containers/Auth';
 import Home from '../containers/Home';
+import Users from '../containers/Users';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
 
@@ -25,6 +26,8 @@ export default (
                 <Route exact path='/' component={Login}/>
                 <Auth>
                     <Route path='/home' component={Home}/>
+                    <Route path='/users' component={Users}/>
+                    {/*<Route path='*' component={Login}/>*/}
                 </Auth>
             </Switch>
         </ConnectedRouter>

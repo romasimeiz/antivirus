@@ -11,11 +11,7 @@ const initialState = {
             className: 'fa fa-home'
         },
         {
-            name: 'Reservations',
-            className: 'fa fa-calendar'
-        },
-        {
-            name: 'Clients',
+            name: 'Users',
             className: 'fa fa-user-o'
         }
     ],

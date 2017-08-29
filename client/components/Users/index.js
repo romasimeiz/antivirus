@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Grid from '../Common/Grid';
-import './home.scss';
+import './users.scss';
 
-export default class Home extends Component {
+export default class Users extends Component {
 
     render() {
         return (
