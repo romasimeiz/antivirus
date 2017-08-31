@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
-import { logout } from "../actions/actions";
-import { bindActionCreators } from "redux";
-import { push } from "react-router-redux"
+import * as AppActions from '../actions/actions';
 
 import Auth from '../components/auth';
 
@@ -13,10 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logout: bindActionCreators(logout, dispatch),
         handleLogout() {
-            dispatch(logout());
-            dispatch(push('/'));
+            dispatch(AppActions.logout.request());
         }
     };
 };

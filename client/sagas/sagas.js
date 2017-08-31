@@ -1,31 +1,61 @@
-import * as con from '../constants/constants';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import * as actions from "../actions/actions";
+import { call, put, take, fork } from 'redux-saga/effects';
+import apiFetch from '../api';
+import { push } from 'react-router-redux';
 
-
-function* loginUser(action) {
-    console.log(action.creds)
-    const data = {
-        email: 'admin@example.com',
-        password: "password"
-    }
-    try {
-        fetch('http://192.168.1.148:3000/user/login/', {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            mode: "cors",
-            body: JSON.stringify(data)
-        }).then(function (res) {
-            console.log(res.json())
-        })
-        // yield put({type: con.LOGIN_SUCCESS, user: user});
-    } catch (e) {
-        yield put({type: con.LOGIN_FAILURE, message: e.message});
+function* watchLogin() {
+    while (true) {
+        const data = {
+            email: 'contact@petehouston.com',
+            password: "secret"
+        };
+        const {request} = yield take(actions.LOGIN.REQUEST);
+        try {
+            const user = yield call(apiFetch, '/login', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            yield put(actions.login.success(user));
+            yield put(push('/home'));
+        } catch (e) {
+            yield put(actions.login.error(e))
+        }
     }
 }
 
-export default function* helloSaga() {
-    yield takeLatest(con.LOGIN_REQUEST, loginUser);
+function* watchLogout() {
+    while (true) {
+        const {request} = yield take(actions.LOGOUT.REQUEST);
+        try {
+            const recipes = yield call(apiFetch, '/logout', {
+                method: 'POST'
+            });
+            yield put(actions.logout.success());
+            yield put(push('/'));
+        } catch (e) {
+            yield put(actions.logout.error(e))
+        }
+    }
+}
+
+function* watchUsers() {
+    while (true) {
+        yield take(actions.USERS.REQUEST);
+        try {
+            const users = yield call(apiFetch, '/user', {
+                method: 'GET'
+            });
+            yield put(actions.users.success(users));
+        } catch (e) {
+            yield put(actions.users.error(e))
+        }
+    }
+}
+
+export default function* rootSaga() {
+    yield [
+        fork(watchLogin),
+        fork(watchLogout),
+        fork(watchUsers)
+    ]
 }

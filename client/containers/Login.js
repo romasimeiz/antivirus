@@ -1,9 +1,7 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import * as AppActions from '../actions/actions';
 import Login from '../components/Login';
 import { reduxForm } from 'redux-form';
-import { push } from 'react-router-redux';
 
 const LoginContainer = reduxForm({
     form: 'login',
@@ -11,15 +9,15 @@ const LoginContainer = reduxForm({
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        isFetching: state.auth.isFetching
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        actions: bindActionCreators(AppActions, dispatch),
         handleFormSubmit(formProps) {
-            dispatch(AppActions.doLogin(formProps));
+            dispatch(AppActions.login.request(formProps));
         }
     };
 };

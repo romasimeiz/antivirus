@@ -5,7 +5,6 @@ import Row from './Row';
 
 export default class Sidebar extends Component {
 
-
     render() {
         return (
             <nav className="navbar-default navbar-static-side" role="navigation">

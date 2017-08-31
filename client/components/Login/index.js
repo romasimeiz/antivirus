@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-
+import Spinner from '../Common/Spinner';
 import './login.scss';
 
 export default class Login extends Component {
@@ -15,11 +15,12 @@ export default class Login extends Component {
     //         );
     //     }
     // }
-
     render() {
-        const {handleSubmit, handleFormSubmit} = this.props;
+        const {handleSubmit, handleFormSubmit, isFetching} = this.props;
         return (
+
             <div className="middle-box text-center loginscreen animated fadeInDown">
+                <Spinner isFetching={isFetching} />
                 <form onSubmit={handleSubmit(handleFormSubmit)} className="m-t">
                     {/*{this.renderAlert()}*/}
                     <div className="form-group">

@@ -1,10 +1,11 @@
-import * as con from '../constants/constants';
+import * as actions from "../actions/actions";
 
 const initialState = {
     user: {
         name: 'guest',
     },
     errorMessage: false,
+    isFetching: false,
     sideBar: [
         {
             name: 'Home',
@@ -15,21 +16,21 @@ const initialState = {
             className: 'fa fa-user-o'
         }
     ],
-    clientsGrid : [
+    clientsGrid: [
         {
-            name : 'Name',
-            className : 'table-name',
-            mapping : 'name'
+            name: 'Name',
+            className: 'table-name',
+            mapping: 'name'
         },
         {
-            name : 'Email',
-            className : '',
-            mapping : 'ClientEmail'
+            name: 'Email',
+            className: '',
+            mapping: 'ClientEmail'
         },
         {
-            name : 'Phone',
-            className : '',
-            mapping : 'phone'
+            name: 'Phone',
+            className: '',
+            mapping: 'phone'
         }
     ],
 };
@@ -42,23 +43,45 @@ const initialState = {
  * @returns {*}
  */
 
-function auth(state = initialState, action) {
+const auth = (state = initialState, action) => {
     switch (action.type) {
-        case con.LOGIN_SUCCESS:
+        case actions.LOGIN.SUCCESS:
+            localStorage.setItem('access_token', action.response.token);
+            return {
+                ...state,
+                user: action.response.user,
+                isFetching: false
+            };
+        case actions.LOGIN.FAILURE:
             return Object.assign({}, state, {
-                user: action.user
+                errorMessage: action.errorMessage,
+                isFetching: false
             });
-        case con.LOGIN_FAILURE:
+        case actions.LOGIN.REQUEST:
             return Object.assign({}, state, {
-                errorMessage: action.errorMessage
+                isFetching: true
             });
-        case con.LOGOUT_REQUEST:
+        case actions.LOGOUT.SUCCESS:
+            localStorage.clear();
+            return {
+                ...state,
+                user: {
+                    name: 'guest',
+                },
+                isFetching: false
+            };
+        case actions.LOGOUT.FAILURE:
             return Object.assign({}, state, {
-                user: {name: 'guest'}
+                errorMessage: action.errorMessage,
+                isFetching: false
+            });
+        case actions.LOGOUT.REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true
             });
         default:
             return state
     }
-}
+};
 
 export default auth;
