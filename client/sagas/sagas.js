@@ -5,15 +5,11 @@ import { push } from 'react-router-redux';
 
 function* watchLogin() {
     while (true) {
-        const data = {
-            email: 'contact@petehouston.com',
-            password: "secret"
-        };
         const {request} = yield take(actions.LOGIN.REQUEST);
         try {
             const user = yield call(apiFetch, '/login', {
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify(request)
             });
             yield put(actions.login.success(user));
             yield put(push('/home'));
