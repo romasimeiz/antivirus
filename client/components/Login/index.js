@@ -24,8 +24,8 @@ export default class Login extends Component {
                 <form onSubmit={handleSubmit(handleFormSubmit)} className="m-t">
                     {/*{this.renderAlert()}*/}
                     <div className="form-group">
-                        <Field name="username" className="form-control" component="input" type="text"
-                               placeholder="Username"/>
+                        <Field name="email" className="form-control" component="input" type="text"
+                               placeholder="Email"/>
                     </div>
                     <div className="form-group">
                         <Field name="password" className="form-control" component="input" type="password"

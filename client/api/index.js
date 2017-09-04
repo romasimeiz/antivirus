@@ -15,7 +15,8 @@ const globalOptions = {
 /**
  * Api URL
  */
-const apiUrl = 'http://antivirus.local/api';
+//const apiUrl = 'http://antivirus.local/api';
+const apiUrl = 'http://localhost:8000/api';
 
 /**
  * Parses the JSON returned by a network request
