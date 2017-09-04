@@ -53,10 +53,9 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-    let newOptions = Object.assign(globalOptions, options);
+    let newOptions = Object.assign({}, globalOptions, options);
     const newUrl = apiUrl + url;
     const token = localStorage.getItem('access_token') || null;
-
     if (token) {
         newOptions = {
             ...newOptions,
