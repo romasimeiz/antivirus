@@ -7,10 +7,10 @@ import './style.scss';
 export default class Auth extends Component {
 
     render() {
-        const {handleLogout, auth} = this.props;
+        const {handleLogout, auth, sideBar} = this.props;
         return (
             <div className="viewport">
-                <Sidebar user={auth.user} fields={auth.sideBar}/>
+                <Sidebar user={auth.user} fields={sideBar}/>
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={handleLogout}/>
                     <div className="body">
