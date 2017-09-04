@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function Row({className, name}) {
     return (
         <li>
             <NavLink activeClassName="active" to={name.toLowerCase()}>
                 <i className={className} aria-hidden="true"/>
-                {name}
+                <span className="nav-label">  {name}</span>
+                <span className="fa arrow"/>
             </NavLink>
         </li>
     )
@@ -15,6 +17,6 @@ export default function Row({className, name}) {
 Row.displayName = 'Row';
 
 Row.propTypes = {
-    className: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
+    className: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
 };

@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-
+import React, { Component } from 'react';
 import './home.scss';
 
 export default class Home extends Component {
