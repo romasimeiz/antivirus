@@ -25,9 +25,9 @@ function* watchLogin() {
 
 function* watchLogout() {
     while (true) {
-        const {request} = yield take(actions.LOGOUT.REQUEST);
+        yield take(actions.LOGOUT.REQUEST);
         try {
-            const recipes = yield call(apiFetch, '/logout', {
+            yield call(apiFetch, '/logout', {
                 method: 'POST'
             });
             yield put(actions.logout.success());
