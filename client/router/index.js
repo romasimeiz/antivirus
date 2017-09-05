@@ -12,14 +12,7 @@ import NotFound from '../components/NotFound';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
 
-// requireAuth = (nextState, replace) => {
-//     if (localStorage.getItem('user') === null) {
-//         replace({
-//             pathname: '/',
-//             state: {nextPathname: nextState.location.pathname}
-//         })
-//     }
-// };
+
 
 
 export default (

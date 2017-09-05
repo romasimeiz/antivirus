@@ -3,6 +3,7 @@ import * as AppActions from '../actions/actions';
 import Login from '../components/Login';
 import { reduxForm } from 'redux-form';
 
+
 const LoginContainer = reduxForm({
     form: 'login',
 })(Login);
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleFormSubmit(formProps) {
             dispatch(AppActions.login.request(formProps));
-        }
+        },
     };
 };
 

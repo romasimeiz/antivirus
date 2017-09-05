@@ -1,9 +1,7 @@
 import * as actions from "../actions/actions";
 
 const initialState = {
-    user: {
-        name: 'guest',
-    },
+    user: JSON.parse(localStorage.getItem('user')) || {},
     errorMessage: false,
     isFetching: false,
     sideBar: [
@@ -51,20 +49,24 @@ const auth = (state = initialState, action) => {
     switch (action.type) {
         case actions.LOGIN.SUCCESS:
             localStorage.setItem('access_token', action.response.token);
+            localStorage.setItem('user', JSON.stringify(action.response.user));
+            console.log( JSON.parse(localStorage.getItem('user')))
             return {
                 ...state,
                 user: action.response.user,
                 isFetching: false
             };
         case actions.LOGIN.FAILURE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 errorMessage: action.errorMessage,
                 isFetching: false
-            });
+            };
         case actions.LOGIN.REQUEST:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 isFetching: true
-            });
+            };
         case actions.LOGOUT.SUCCESS:
             localStorage.clear();
             return {
@@ -75,14 +77,16 @@ const auth = (state = initialState, action) => {
                 isFetching: false
             };
         case actions.LOGOUT.FAILURE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 errorMessage: action.errorMessage,
                 isFetching: false
-            });
+            };
         case actions.LOGOUT.REQUEST:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 isFetching: true
-            });
+            };
         default:
             return state
     }
