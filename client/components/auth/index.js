@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import Header from '../Common/Header';
 import Sidebar from '../Common/Sidebar';
 import './style.scss';
@@ -13,6 +14,16 @@ export default class Auth extends Component {
     toggleSidebar = () => {
         this.setState({show: !this.state.show});
     };
+
+    componentWillMount() {
+        this.props.checkAuthentication();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.location !== this.props.location) {
+            this.props.checkAuthentication();
+        }
+    }
 
     render() {
         const {handleLogout, auth} = this.props;

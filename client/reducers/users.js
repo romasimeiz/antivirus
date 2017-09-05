@@ -30,10 +30,16 @@ const users = (state = initialState, action) => {
                 isFetching: false
             };
         case actions.USERS.FAILURE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 errorMessage: action.errorMessage,
                 isFetching: false
-            });
+            };
+        case actions.USERS.REQUEST:
+            return {
+                ...state,
+                isFetching: false
+            };
         default:
             return state
     }
