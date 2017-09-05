@@ -15,6 +15,8 @@ const buildRow = (fields, row, rowIndex) => {
             {
                 fields.map((field, cellIndex) =>
                 {
+                    console.log(row);
+                    console.log(field);
                     return <CellBody
                         text={ _.get(row, field.mapping) }
                         className={ field.className }

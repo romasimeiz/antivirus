@@ -62,11 +62,26 @@ function* watchProjects() {
     }
 }
 
+function* watchFiles() {
+    while (true) {
+        const action = yield take(actions.FILES.REQUEST);
+        try {
+            const files = yield call(apiFetch, `/files/project/${action.request}`, {
+                method: 'GET'
+            });
+            yield put(actions.files.success(files));
+        } catch (e) {
+            yield put(actions.files.error(e))
+        }
+    }
+}
+
 export default function* rootSaga() {
     yield [
         fork(watchLogin),
         fork(watchLogout),
         fork(watchUsers),
-        fork(watchProjects)
+        fork(watchProjects),
+        fork(watchFiles)
     ]
 }

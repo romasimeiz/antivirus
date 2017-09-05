@@ -6,10 +6,11 @@ function createRequestTypes (base){
     }
 }
 
-export const LOGIN = createRequestTypes("LOGIN");
-export const LOGOUT = createRequestTypes("LOGOUT");
-export const USERS = createRequestTypes("USERS");
+export const LOGIN    = createRequestTypes("LOGIN");
+export const LOGOUT   = createRequestTypes("LOGOUT");
+export const USERS    = createRequestTypes("USERS");
 export const PROJECTS = createRequestTypes("PROJECTS");
+export const FILES    = createRequestTypes("FILES");
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -45,4 +46,13 @@ export const projects = {
     success: response => ({type: PROJECTS.SUCCESS, response}),
     // Send the error
     error: error => ({type: PROJECTS.FAILURE, error})
+};
+
+export const files = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: FILES.REQUEST, request}),
+    // Send the response
+    success: response => ({type: FILES.SUCCESS, response}),
+    // Send the error
+    error: error => ({type: FILES.FAILURE, error})
 };
