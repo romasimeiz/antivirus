@@ -48,10 +48,25 @@ function* watchUsers() {
     }
 }
 
+function* watchProjects() {
+    while (true) {
+        yield take(actions.PROJECTS.REQUEST);
+        try {
+            const projects = yield call(apiFetch, '/project', {
+                method: 'GET'
+            });
+            yield put(actions.projects.success(projects));
+        } catch (e) {
+            yield put(actions.projects.error(e))
+        }
+    }
+}
+
 export default function* rootSaga() {
     yield [
         fork(watchLogin),
         fork(watchLogout),
-        fork(watchUsers)
+        fork(watchUsers),
+        fork(watchProjects)
     ]
 }

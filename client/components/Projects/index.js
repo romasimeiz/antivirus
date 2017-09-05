@@ -1,0 +1,17 @@
+import React, { Component } from 'react';
+import Grid from '../Common/Grid';
+import './projects.scss';
+
+export default class Projects extends Component {
+    componentDidMount() {
+        this.props.getProjects();
+    }
+
+    render() {
+        return (
+            <div>
+                <Grid fields={this.props.fields} data={this.props.projects}/>
+            </div>
+        );
+    }
+}

@@ -9,6 +9,7 @@ function createRequestTypes (base){
 export const LOGIN = createRequestTypes("LOGIN");
 export const LOGOUT = createRequestTypes("LOGOUT");
 export const USERS = createRequestTypes("USERS");
+export const PROJECTS = createRequestTypes("PROJECTS");
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -35,4 +36,13 @@ export const users = {
     success: response => ({type: USERS.SUCCESS, response}),
     // Send the error
     error: error => ({type: USERS.FAILURE, error})
+};
+
+export const projects = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: PROJECTS.REQUEST, request}),
+    // Send the response
+    success: response => ({type: PROJECTS.SUCCESS, response}),
+    // Send the error
+    error: error => ({type: PROJECTS.FAILURE, error})
 };

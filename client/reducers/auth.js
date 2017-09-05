@@ -14,6 +14,10 @@ const initialState = {
         {
             name: 'Users',
             className: 'fa fa-user-o'
+        },
+        {
+            name: 'Projects',
+            className: 'fa fa-tasks'
         }
     ],
     clientsGrid: [

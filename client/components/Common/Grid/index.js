@@ -4,6 +4,8 @@ import Body from './Body';
 import Row from './Row';
 import CellHeader from './CellHeader';
 import CellBody from './CellBody';
+import _ from 'lodash';
+
 import './style.scss';
 
 
@@ -12,11 +14,13 @@ const buildRow = (fields, row, rowIndex) => {
         <Row key={`row${rowIndex}`}>
             {
                 fields.map((field, cellIndex) =>
-                    <CellBody
-                        text={row[field.mapping]}
-                        className={field.className}
-                        key={`cell${cellIndex}`}
-                    />)
+                {
+                    return <CellBody
+                        text={ _.get(row, field.mapping) }
+                        className={ field.className }
+                        key={ `cell${cellIndex}` }
+                    />
+                })
             }
         </Row>
     );
@@ -54,7 +58,7 @@ export default class Grid extends Component {
                             <CellHeader text={'Control Panel'}/>
                         </Row>
                     </Header>
-                    {buildBody(fields, data)}
+                    { data.data ? buildBody(fields, data.data) : null }
                     {children}
                 </table>
             </div>
