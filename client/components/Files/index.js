@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '../Common/Grid';
-import './files.scss';
+//import './files.scss';
 
 export default class Files extends Component {
     componentDidMount() {
@@ -8,7 +8,6 @@ export default class Files extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <Grid fields={this.props.fields} data={this.props.files} />

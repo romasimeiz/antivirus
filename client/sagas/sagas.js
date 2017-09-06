@@ -55,6 +55,12 @@ function* watchProjects() {
             const projects = yield call(apiFetch, '/project', {
                 method: 'GET'
             });
+
+            projects.data.data.map( (value) => {
+                value.link = `/projects/${value.id}/files`;
+                return value;
+            });
+
             yield put(actions.projects.success(projects));
         } catch (e) {
             yield put(actions.projects.error(e))
@@ -69,6 +75,12 @@ function* watchFiles() {
             const files = yield call(apiFetch, `/files/project/${action.request}`, {
                 method: 'GET'
             });
+
+            files.data.data.map( (value) => {
+                value.className = value.hash_first != value.hash_last ? 'red' : '' ;
+                return value;
+            });
+
             yield put(actions.files.success(files));
         } catch (e) {
             yield put(actions.files.error(e))

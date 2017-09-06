@@ -24,7 +24,6 @@ const initialState = {
             mapping: 'hash_last'
         }
     ],
-    id: 0
 };
 
 const files = (state = initialState, action) => {

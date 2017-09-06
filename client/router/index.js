@@ -25,10 +25,12 @@ export default (
                         <Route path='/home' component={Home}/>
                         <Route path='/users' component={Users}/>
                         <Route exact path='/projects' component={Projects} />
-                        <Route path='/projects/:projectId/files' component={Files} />
+                        <Route path='/projects/:projectId/files' component={Files}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </Auth>
+                <Files>
+                </Files>
             </Switch>
         </ConnectedRouter>
     </App>

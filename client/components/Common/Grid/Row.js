@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Row({children}) {
+export default function Row({className, onClick, children}) {
   return (
-    <tr>{children}</tr>
+    <tr onClick={onClick} className={className}>{children}</tr>
   );
 }
 

@@ -10,13 +10,16 @@ import './style.scss';
 
 
 const buildRow = (fields, row, rowIndex) => {
+    console.log('Class Name: ', row.className);
     return (
-        <Row key={`row${rowIndex}`}>
+        <Row
+            key={`row${rowIndex}`}
+            onClick={row.link ? () => {window.location.href=row.link} : () => {return false} }
+            className={row.className}
+        >
             {
                 fields.map((field, cellIndex) =>
                 {
-                    console.log(row);
-                    console.log(field);
                     return <CellBody
                         text={ _.get(row, field.mapping) }
                         className={ field.className }
