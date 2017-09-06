@@ -10,7 +10,7 @@ export default class Projects extends Component {
     render() {
         return (
             <div>
-                <Grid fields={this.props.fields} data={this.props.projects}/>
+                <Grid fields={this.props.fields} data={this.props.projects} actions={this.props.actions} />
             </div>
         );
     }

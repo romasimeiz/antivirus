@@ -4,19 +4,18 @@ import Body from './Body';
 import Row from './Row';
 import CellHeader from './CellHeader';
 import CellBody from './CellBody';
+import Actions from './Actions';
 import _ from 'lodash';
 
 import './style.scss';
 
 
-const buildRow = (fields, row, rowIndex) => {
-    console.log('Class Name: ', row.className);
+const buildRow = (fields, row, rowIndex, actions) => {
     return (
         <Row
             key={`row${rowIndex}`}
             onClick={row.link ? () => {window.location.href=row.link} : () => {return false} }
-            className={row.className}
-        >
+            className={row.className} >
             {
                 fields.map((field, cellIndex) =>
                 {
@@ -27,15 +26,16 @@ const buildRow = (fields, row, rowIndex) => {
                     />
                 })
             }
+            <Actions entityId={row.id} actions={actions} />
         </Row>
     );
 };
 
-const buildBody = (fields, data) => {
+const buildBody = (fields, data, actions) => {
     return (
         <Body>
         {
-            data.map((row, index) => buildRow(fields, row, index))
+            data.map((row, index) => buildRow(fields, row, index, actions))
         }
         </Body>
     );
@@ -43,7 +43,7 @@ const buildBody = (fields, data) => {
 
 export default class Grid extends Component {
     render() {
-        const {fields, data, children} = this.props;
+        const {fields, data, children, actions} = this.props;
         return (
             <div>
                 <table className="table table-bordered">
@@ -60,10 +60,10 @@ export default class Grid extends Component {
                                     );
                                 })
                             }
-                            <CellHeader text={'Control Panel'}/>
+                            { actions ?  <CellHeader text={'Actions'} /> : false }
                         </Row>
                     </Header>
-                    { data.data ? buildBody(fields, data.data) : null }
+                    { data.data ? buildBody(fields, data.data, actions) : null }
                     {children}
                 </table>
             </div>

@@ -5,7 +5,8 @@ import * as AppActions from '../actions/actions';
 
 const mapStateToProps = state => ({
     fields : state.projects.projectsGrid,
-    projects : state.projects.projects
+    projects : state.projects.projects,
+    actions: state.projects.actions
 });
 
 const mapDispatchToProps = (dispatch) => {

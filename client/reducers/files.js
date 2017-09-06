@@ -22,7 +22,7 @@ const initialState = {
             name: 'Hash last',
             className: '',
             mapping: 'hash_last'
-        }
+        },
     ],
 };
 

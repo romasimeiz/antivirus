@@ -77,7 +77,7 @@ function* watchFiles() {
             });
 
             files.data.data.map( (value) => {
-                value.className = value.hash_first != value.hash_last ? 'red' : '' ;
+                value.className = value.hash_first != value.hash_last ? 'danger' : '' ;
                 return value;
             });
 

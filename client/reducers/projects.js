@@ -24,6 +24,7 @@ const initialState = {
             mapping: 'script_url'
         }
     ],
+    actions: {types: ['update', 'delete'], entity: 'projects'}
 };
 
 const projects = (state = initialState, action) => {
