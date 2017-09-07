@@ -19,6 +19,40 @@ function* watchLogin() {
     }
 }
 
+function* watchProjectForm() {
+    while (true) {
+        const action = yield take(actions.PROJECT_FORM.REQUEST);
+        try {
+            const project = yield call(apiFetch, `/project/${action.request}`, {
+                method: 'GET',
+            });
+            const users = yield call(apiFetch, `/user?per_page=999`, {
+                method: 'GET',
+            });
+            yield put(actions.projectForm.success({project, users}));
+        } catch (e) {
+            yield put(actions.login.error(e))
+        }
+    }
+}
+
+function* watchProjectFormSubmit() {
+    while (true) {
+        const {submit} = yield take(actions.PROJECT_FORM.SUBMIT);
+        const projectId = submit.id;
+        try {
+            const project = yield call(apiFetch, `/project/${projectId}`, {
+                method: 'PUT',
+                body: JSON.stringify(submit)
+            });
+            yield put(push('/projects'));
+        } catch (e) {
+            yield put(actions.projectForm.error(e))
+        }
+
+    }
+}
+
 function* watchLogout() {
     while (true) {
         yield take(actions.LOGOUT.REQUEST);
@@ -94,6 +128,8 @@ export default function* rootSaga() {
         fork(watchLogout),
         fork(watchUsers),
         fork(watchProjects),
-        fork(watchFiles)
+        fork(watchFiles),
+        fork(watchProjectForm),
+        fork(watchProjectFormSubmit)
     ]
 }

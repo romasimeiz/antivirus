@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getProjects() {
             dispatch(AppActions.projects.request());
-        }
+        },
     };
 };
 

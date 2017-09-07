@@ -17,8 +17,8 @@ export default function Actions({ actions, entityId, children }) {
 
 
 Actions.propTypes = {
-  actions  : PropTypes.object.isRequired,
-  entityId : PropTypes.number.isRequired
+   actions  : PropTypes.object.isRequired,
+   entityId : PropTypes.number.isRequired
 };
 
 Actions.displayName = 'Actions';
