@@ -11,9 +11,9 @@ const ProjectFormContainer = reduxForm({
 
 const mapStateToProps = (state) => {
     return {
-        project : state.projectForm.project,
-        users : state.projectForm.users,
-        isFetching: state.auth.isFetching,
+        project:       state.projectForm.project,
+        users:         state.users.users,
+        isFetching:    state.auth.isFetching,
         initialValues: state.projectForm.project.data
     };
 };
@@ -21,11 +21,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         load: projectForm,
-        handleFormSubmit(formProps, projectId) {
-            dispatch(AppActions.projectForm.submit(formProps, projectId));
+
+        onSubmit: (values) => {
+            dispatch(AppActions.projectForm.submit(values));
         },
+
         getProject(projectId) {
             dispatch(AppActions.projectForm.request(projectId))
+        },
+
+        getUsers() {
+            dispatch(AppActions.users.request())
         }
     };
 };

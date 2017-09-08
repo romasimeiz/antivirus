@@ -37,13 +37,19 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response) {
+    let json = response.json();
     if (response.status >= 200 && response.status < 300) {
-        return response;
+        return json;
     }
+    return json.then(res => {
+        throw res
+    } );
+    // console.log(response.json())
+    //response.json().then(res => console.log(res));
 
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    // const error = new Error(response.statusText);
+    // error.response = response;
+    // throw error;
 }
 
 /**
@@ -65,5 +71,5 @@ export default function request(url, options) {
     }
     return fetch(newUrl, newOptions)
         .then(checkStatus)
-        .then(parseJSON);
+        // .then(parseJSON);
 }

@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { Link } from 'react-router-dom';
 import Spinner from '../Common/Spinner';
 import './project-form.scss';
+
+const renderField = ({style, input, label, type, meta: { touched, error } }) =>
+    <div className={error ? 'form-group has-error' : 'form-group' }>
+        <label className="control-label">
+            {label}
+        </label>
+        <div>
+            <input className="form-control" {...input} placeholder={label} type={type} style={style} />
+            {touched &&
+            error &&
+        <div className="help-block">
+            <span>
+              {error}
+            </span>
+        </div>}
+        </div>
+    </div>;
 
 export default class ProjectForm extends Component {
     componentWillMount() {
         this.props.getProject(this.props.match.params.projectId);
+        this.props.getUsers();
     }
 
     render() {
-        const {isFetching, handleFormSubmit, handleSubmit, users, project  } = this.props;
-        const usersArray = users.data ? users.data.data : null;
+        const {isFetching, handleFormSubmit, handleSubmit, users, project, onSubmit, error } = this.props;
+        const usersArray = users.data ? users.data : null;
         return (
             <div className="middle-box loginscreen animated fadeInDown">
                 <Spinner isFetching={isFetching} />
-                <form onSubmit={handleSubmit(handleFormSubmit, project.id)} className="m-t">
+                <form onSubmit={handleSubmit(onSubmit)} className="m-t">
                     <Field name="user_id" component="select" className="form-control m-b">
                         <option value="">Select a user...</option>
                         {
@@ -25,47 +42,31 @@ export default class ProjectForm extends Component {
                             </option>
                         ) : false}
                     </Field>
-                    <div className="form-group">
-                        <label className="control-label">Project name</label>
-                        <Field name="name" className="form-control" component="input" type="text"
-                               placeholder="Project Name"
-                               />
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Restrict IP</label>
-                        <Field name="restrict_ip" className="form-control" component="input" type="text"
-                               placeholder="Restrict IP"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Script URL</label>
-                        <Field name="script_url" className="form-control" component="input" type="text"
-                               placeholder="Script URL"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Script version</label>
-                        <Field name="script_version" className="form-control" component="input" type="text"
-                               placeholder="Script version"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Host</label>
-                        <Field name="host" className="form-control" component="input" type="text"
-                               placeholder="Host"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Platform name</label>
-                        <Field name="platform_name" className="form-control" component="input" type="text"
-                               placeholder="Platform name"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Platform version</label>
-                        <Field name="platform_version" className="form-control" component="input" type="text"
-                               placeholder="Platform version"/>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label">Is active</label>
-                        <Field name="is_active" className="form-control" component="input" style={{width: '10%'}} type="checkbox"
-                               />
-                    </div>
+
+                    <Field label="Project name" name="name" className="form-control" component={renderField} type="text"
+                           placeholder="Project Name" />
+
+                    <Field name="restrict_ip" className="form-control" component={renderField} type="text" label="Restrict IP"
+                           placeholder="Restrict IP" />
+
+                    <Field name="script_url" className="form-control" component={renderField} type="text"
+                           placeholder="Script URL" label="Script URL" />
+
+                    <Field name="script_version" className="form-control" component={renderField} type="text"
+                           placeholder="Script version" label="Script version"/>
+
+                    <Field name="host" className="form-control" component={renderField} type="text"
+                           placeholder="Host" label="Host" />
+
+                    <Field name="platform_name" className="form-control" component={renderField} type="text"
+                           placeholder="Platform name" label="Platform name"/>
+
+                    <Field name="platform_version" className="form-control" component={renderField} type="text"
+                           placeholder="Platform version" label="Platform version"/>
+
+                    <Field name="is_active" className="form-control" component={renderField}
+                           style={{width: '10%'}} type="checkbox" label="Is active?" />
+
                     <button type="submit" className="btn btn-primary block full-width m-b">Save</button>
                 </form>
             </div>

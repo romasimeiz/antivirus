@@ -2,6 +2,8 @@ import * as actions from "../actions/actions";
 import { call, put, take, fork } from 'redux-saga/effects';
 import apiFetch from '../api';
 import { push } from 'react-router-redux';
+import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
+
 
 function* watchLogin() {
     while (true) {
@@ -26,10 +28,7 @@ function* watchProjectForm() {
             const project = yield call(apiFetch, `/project/${action.request}`, {
                 method: 'GET',
             });
-            const users = yield call(apiFetch, `/user?per_page=999`, {
-                method: 'GET',
-            });
-            yield put(actions.projectForm.success({project, users}));
+            yield put(actions.projectForm.success({project}));
         } catch (e) {
             yield put(actions.login.error(e))
         }
@@ -38,18 +37,32 @@ function* watchProjectForm() {
 
 function* watchProjectFormSubmit() {
     while (true) {
+        const formId = 'project-form';
         const {submit} = yield take(actions.PROJECT_FORM.SUBMIT);
         const projectId = submit.id;
+
+        submit.is_active = submit.is_active == '' ? false : submit.is_active;
+
+        startSubmit(formId);
+
         try {
             const project = yield call(apiFetch, `/project/${projectId}`, {
                 method: 'PUT',
                 body: JSON.stringify(submit)
             });
-            yield put(push('/projects'));
-        } catch (e) {
-            yield put(actions.projectForm.error(e))
-        }
 
+            yield put(reset());
+            yield put(stopSubmit(formId));
+            yield put(push('/projects'));
+        } catch (err) {
+            let allObjects = {};
+            for (let key in err.errors) {
+                if (!err.errors.hasOwnProperty(key)) { continue }
+                allObjects[key] = err.errors[key].join('. ');
+            }
+            yield put(stopSubmit(formId, allObjects));
+            yield put(actions.projectForm.error(err));
+        }
     }
 }
 
