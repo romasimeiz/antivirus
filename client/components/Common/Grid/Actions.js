@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ActionLink from './ActionLink';
+import Delete from '../../../containers/Delete';
+import Update from '../Actions/update';
+import View from '../Actions/view';
 
 export default function Actions({ actions, entityId, children }) {
     return (
@@ -8,7 +10,14 @@ export default function Actions({ actions, entityId, children }) {
             {
                 actions.types.map((type, index) => {
                     let link = `/${actions.entity}/${entityId}/${type}`;
-                    return <ActionLink key={index} link={link} type={type} />
+                    switch (type) {
+                        case 'delete' :
+                            return <Delete entityId={} key={index} type={type} callback={'hi!'} />;
+                        case 'view' :
+                            return <View key={index} type={type} link={link} />;
+                        case 'update' :
+                            return <Update key={index} type={type} link={link} />;
+                    }
                 })
             }
         </th>

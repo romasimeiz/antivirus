@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CellBody = ({text, className, children}) => {
+const CellBody = ({text, className, onClick, children}) => {
     return (
-        <th className={className}>{text || children}</th>
+        <th onClick={onClick} className={className}>{text || children}</th>
     );
 };
 

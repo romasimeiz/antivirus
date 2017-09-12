@@ -22,6 +22,23 @@ function* watchLogin() {
     }
 }
 
+function* watchProjectDelete() {
+    while (true) {
+        const {request} = yield take(actions.PROJECT_DELETE.REQUEST);
+        try {
+            const project = yield call(apiFetch, `/project/${request}/disable`, {
+                method: 'GET',
+            });
+            yield put(actions.projectDelete.success(project));
+            yield put(actions.notification.show({message : projectMessages.DELETED_SUCCESS, title : 'Success!'}));
+
+        } catch (e) {
+            yield put(actions.projectDelete.error(e));
+            yield put(actions.notification.show({message : projectMessages.DELETED_ERROR, title : 'Error!'}));
+        }
+    }
+}
+
 function* watchProjectEdit() {
     while (true) {
         const action = yield take(actions.PROJECT_EDIT.REQUEST);
@@ -31,7 +48,7 @@ function* watchProjectEdit() {
             });
             yield put(actions.projectEdit.success({project}));
         } catch (e) {
-            yield put(actions.login.error(e))
+            yield put(actions.projectEdit.error(e));
         }
     }
 }
@@ -145,6 +162,7 @@ export default function* rootSaga() {
         fork(watchProjects),
         fork(watchFiles),
         fork(watchProjectEdit),
-        fork(watchProjectEditSubmit)
+        fork(watchProjectEditSubmit),
+        fork(watchProjectDelete)
     ]
 }

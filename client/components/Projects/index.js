@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import Grid from '../Common/Grid';
+
 import './projects.scss';
 
 export default class Projects extends Component {
+    constructor(props){
+        super(props);
+    }
+
     componentDidMount() {
         this.props.getProjects();
     }

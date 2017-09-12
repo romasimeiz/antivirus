@@ -11,12 +11,9 @@ import './style.scss';
 
 
 const buildRow = (fields, row, rowIndex, actions, pushToRoute) => {
-    // console.log('its push to route', pushToRoute);
     return (
         <Row
             key={`row${rowIndex}`}
-            // onClick={row.link ? () => {window.location.href=row.link} : () => {return false} }
-            onClick={ row.link ? () => pushToRoute(row.link) : () => {return false} }
             className={row.className} >
             {
                 fields.map((field, cellIndex) =>
@@ -25,6 +22,7 @@ const buildRow = (fields, row, rowIndex, actions, pushToRoute) => {
                         text={ _.get(row, field.mapping) }
                         className={ field.className }
                         key={ `cell${cellIndex}` }
+                        onClick={ row.link ? () => pushToRoute(row.link) : () => {return false} }
                     />
                 })
             }

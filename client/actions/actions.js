@@ -12,6 +12,7 @@ export const USERS        = createRequestTypes("USERS");
 export const PROJECTS     = createRequestTypes("PROJECTS");
 export const FILES        = createRequestTypes("FILES");
 export const PROJECT_EDIT = createRequestTypes("PROJECT_EDIT");
+export const PROJECT_DELETE = createRequestTypes("PROJECT_DELETE");
 export const PROJECT_EDIT_SUBMIT = createRequestTypes("PROJECT_EDIT_SUBMIT");
 export const NOTIFICATION_SHOW = 'NOTIFICATION_SHOW';
 
@@ -67,6 +68,15 @@ export const projectEdit = {
     success: response => ({type: PROJECT_EDIT.SUCCESS, response }),
     // Send the error
     error: error => ({type: PROJECT_EDIT.FAILURE, error})
+};
+
+export const projectDelete = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: PROJECT_DELETE.REQUEST, request}),
+    // Send the response
+    success: response => ({type: PROJECT_DELETE.SUCCESS, response }),
+    // Send the error
+    error: error => ({type: PROJECT_DELETE.FAILURE, error})
 };
 
 export const projectEditSubmit = {

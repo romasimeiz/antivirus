@@ -13,9 +13,6 @@ import NotFound from '../components/NotFound';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
 
-
-
-
 export default (
     <App>
         <ConnectedRouter history={history}>
