@@ -10,11 +10,13 @@ import _ from 'lodash';
 import './style.scss';
 
 
-const buildRow = (fields, row, rowIndex, actions) => {
+const buildRow = (fields, row, rowIndex, actions, pushToRoute) => {
+    // console.log('its push to route', pushToRoute);
     return (
         <Row
             key={`row${rowIndex}`}
-            onClick={row.link ? () => {window.location.href=row.link} : () => {return false} }
+            // onClick={row.link ? () => {window.location.href=row.link} : () => {return false} }
+            onClick={ row.link ? () => pushToRoute(row.link) : () => {return false} }
             className={row.className} >
             {
                 fields.map((field, cellIndex) =>
@@ -26,16 +28,16 @@ const buildRow = (fields, row, rowIndex, actions) => {
                     />
                 })
             }
-            <Actions entityId={row.id} actions={actions} />
+            {actions ? <Actions entityId={row.id} actions={actions} /> : false }
         </Row>
     );
 };
 
-const buildBody = (fields, data, actions) => {
+const buildBody = (fields, data, actions, pushToRoute) => {
     return (
         <Body>
         {
-            data.map((row, index) => buildRow(fields, row, index, actions))
+            data.map((row, index) => buildRow(fields, row, index, actions, pushToRoute))
         }
         </Body>
     );
@@ -43,7 +45,7 @@ const buildBody = (fields, data, actions) => {
 
 export default class Grid extends Component {
     render() {
-        const {fields, data, children, actions} = this.props;
+        const {fields, data, children, actions, pushToRoute} = this.props;
         return (
             <div>
                 <table className="table table-bordered">
@@ -63,7 +65,7 @@ export default class Grid extends Component {
                             { actions ?  <CellHeader text={'Actions'} /> : false }
                         </Row>
                     </Header>
-                    { data.data ? buildBody(fields, data.data, actions) : null }
+                    { data.data ? buildBody(fields, data.data, actions, pushToRoute) : null }
                     {children}
                 </table>
             </div>

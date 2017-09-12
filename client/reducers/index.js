@@ -4,9 +4,9 @@ import auth from './auth';
 import users from './users';
 import files from './files';
 import projects from './projects';
-import projectForm from './project_form';
+import projectEdit from './project-edit';
+import notification from './notification';
 import { routerReducer } from 'react-router-redux';
-
 /**
  * Combine reducers
  */
@@ -17,6 +17,7 @@ export default combineReducers({
     users,
     projects,
     files,
-    projectForm,
-    router: routerReducer
+    projectEdit,
+    notification,
+    router: routerReducer,
 });

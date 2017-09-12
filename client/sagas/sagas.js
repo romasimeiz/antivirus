@@ -3,6 +3,7 @@ import { call, put, take, fork } from 'redux-saga/effects';
 import apiFetch from '../api';
 import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
+import projectMessages from '../messages/project-messages';
 
 
 function* watchLogin() {
@@ -21,47 +22,48 @@ function* watchLogin() {
     }
 }
 
-function* watchProjectForm() {
+function* watchProjectEdit() {
     while (true) {
-        const action = yield take(actions.PROJECT_FORM.REQUEST);
+        const action = yield take(actions.PROJECT_EDIT.REQUEST);
         try {
             const project = yield call(apiFetch, `/project/${action.request}`, {
                 method: 'GET',
             });
-            yield put(actions.projectForm.success({project}));
+            yield put(actions.projectEdit.success({project}));
         } catch (e) {
             yield put(actions.login.error(e))
         }
     }
 }
 
-function* watchProjectFormSubmit() {
+function* watchProjectEditSubmit() {
     while (true) {
-        const formId = 'project-form';
-        const {submit} = yield take(actions.PROJECT_FORM.SUBMIT);
-        const projectId = submit.id;
+        const formId = 'project-edit';
+        const {request} = yield take(actions.PROJECT_EDIT_SUBMIT.REQUEST);
+        const projectId = request.id;
 
-        submit.is_active = submit.is_active == '' ? false : submit.is_active;
-
+        request.is_active = request.is_active === '' ? false : request.is_active;
         startSubmit(formId);
 
         try {
             const project = yield call(apiFetch, `/project/${projectId}`, {
                 method: 'PUT',
-                body: JSON.stringify(submit)
+                body: JSON.stringify(request)
             });
 
             yield put(reset());
             yield put(stopSubmit(formId));
+            yield put(actions.notification.show({message : projectMessages.UPDATED_SUCCESS, title : 'Success!'}));
             yield put(push('/projects'));
         } catch (err) {
-            let allObjects = {};
+            let allErrors = {};
             for (let key in err.errors) {
                 if (!err.errors.hasOwnProperty(key)) { continue }
-                allObjects[key] = err.errors[key].join('. ');
+                allErrors[key] = err.errors[key].join(' ');
             }
-            yield put(stopSubmit(formId, allObjects));
-            yield put(actions.projectForm.error(err));
+            yield put(stopSubmit(formId, allErrors));
+            yield put(actions.projectEditSubmit.error(err));
+            yield put(actions.notification.show({message : projectMessages.UPDATED_ERROR, title : 'Error!'}));
         }
     }
 }
@@ -124,7 +126,7 @@ function* watchFiles() {
             });
 
             files.data.data.map( (value) => {
-                value.className = value.hash_first != value.hash_last ? 'danger' : '' ;
+                value.className = value.hash_first !== value.hash_last ? 'danger' : '' ;
                 return value;
             });
 
@@ -142,7 +144,7 @@ export default function* rootSaga() {
         fork(watchUsers),
         fork(watchProjects),
         fork(watchFiles),
-        fork(watchProjectForm),
-        fork(watchProjectFormSubmit)
+        fork(watchProjectEdit),
+        fork(watchProjectEditSubmit)
     ]
 }

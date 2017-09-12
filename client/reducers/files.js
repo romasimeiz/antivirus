@@ -28,6 +28,11 @@ const initialState = {
 
 const files = (state = initialState, action) => {
     switch (action.type) {
+        case actions.FILES.REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            };
         case actions.FILES.SUCCESS:
             return {
                 ...state,

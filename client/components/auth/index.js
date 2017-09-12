@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
-
 import Header from '../Common/Header';
 import Sidebar from '../Common/Sidebar';
+import AppNotification from '../AppNotification'
 import './style.scss';
 
 export default class Auth extends Component {
@@ -26,9 +25,11 @@ export default class Auth extends Component {
     }
 
     render() {
-        const {handleLogout, auth} = this.props;
+        const {handleLogout, auth, notification} = this.props;
+        console.log('message', notification.message);
         return (
             <div className={"viewport " + (this.state.show ? '' : 'mini-navbar')}>
+                <AppNotification properties={notification} />
                 <Sidebar user={auth.user} fields={auth.sideBar}/>
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={handleLogout} toggle={this.toggleSidebar}/>

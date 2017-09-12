@@ -50,7 +50,7 @@ const auth = (state = initialState, action) => {
         case actions.LOGIN.SUCCESS:
             localStorage.setItem('access_token', action.response.token);
             localStorage.setItem('user', JSON.stringify(action.response.user));
-            console.log( JSON.parse(localStorage.getItem('user')))
+            //console.log( JSON.parse(localStorage.getItem('user')));
             return {
                 ...state,
                 user: action.response.user,

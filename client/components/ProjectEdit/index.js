@@ -20,7 +20,7 @@ const renderField = ({style, input, label, type, meta: { touched, error } }) =>
         </div>
     </div>;
 
-export default class ProjectForm extends Component {
+export default class ProjectEdit extends Component {
     componentWillMount() {
         this.props.getProject(this.props.match.params.projectId);
         this.props.getUsers();

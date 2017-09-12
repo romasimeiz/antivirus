@@ -6,7 +6,7 @@ export default function Actions({ actions, entityId, children }) {
     return (
         <th>
             {
-                actions.types.map( (type, index) => {
+                actions.types.map((type, index) => {
                     let link = `/${actions.entity}/${entityId}/${type}`;
                     return <ActionLink key={index} link={link} type={type} />
                 })
@@ -14,7 +14,6 @@ export default function Actions({ actions, entityId, children }) {
         </th>
     );
 }
-
 
 Actions.propTypes = {
    actions  : PropTypes.object.isRequired,

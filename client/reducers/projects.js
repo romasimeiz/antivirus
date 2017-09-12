@@ -29,6 +29,11 @@ const initialState = {
 
 const projects = (state = initialState, action) => {
     switch (action.type) {
+        case actions.PROJECTS.REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            };
         case actions.PROJECTS.SUCCESS:
             return {
                 ...state,

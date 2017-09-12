@@ -1,16 +1,9 @@
-function createRequestTypes (base, otherProps=[]){
-    const baseParams = {
+function createRequestTypes (base){
+    return  {
         REQUEST: base + "_REQUEST",
         SUCCESS: base + "_SUCCESS",
         FAILURE: base + "_FAILURE",
     };
-
-    otherProps.map( property => {
-        baseParams[property] = `${base}_${property}`;
-        return baseParams;
-    });
-
-    return baseParams;
 }
 
 export const LOGIN        = createRequestTypes("LOGIN");
@@ -18,7 +11,9 @@ export const LOGOUT       = createRequestTypes("LOGOUT");
 export const USERS        = createRequestTypes("USERS");
 export const PROJECTS     = createRequestTypes("PROJECTS");
 export const FILES        = createRequestTypes("FILES");
-export const PROJECT_FORM = createRequestTypes("PROJECT_FORM", ['SUBMIT']);
+export const PROJECT_EDIT = createRequestTypes("PROJECT_EDIT");
+export const PROJECT_EDIT_SUBMIT = createRequestTypes("PROJECT_EDIT_SUBMIT");
+export const NOTIFICATION_SHOW = 'NOTIFICATION_SHOW';
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -58,20 +53,31 @@ export const projects = {
 
 export const files = {
     // Notify the intent to fetch recipes
-    request: request => ({type: PROJECT_FORM.REQUEST, request}),
+    request: request => ({type: FILES.REQUEST, request}),
     // Send the response
-    success: response => ({type: PROJECT_FORM.SUCCESS, response}),
+    success: response => ({type: FILES.SUCCESS, response}),
     // Send the error
-    error: error => ({type: PROJECT_FORM.FAILURE, error})
+    error: error => ({type: FILES.FAILURE, error})
 };
 
-export const projectForm = {
+export const projectEdit = {
     // Notify the intent to fetch recipes
-    request: request => ({type: PROJECT_FORM.REQUEST, request}),
-    // Submit form
-    submit: submit => ({type: PROJECT_FORM.SUBMIT, submit}),
+    request: request => ({type: PROJECT_EDIT.REQUEST, request}),
     // Send the response
-    success: response => ({type: PROJECT_FORM.SUCCESS, response}),
+    success: response => ({type: PROJECT_EDIT.SUCCESS, response }),
     // Send the error
-    error: error => ({type: PROJECT_FORM.FAILURE, error})
+    error: error => ({type: PROJECT_EDIT.FAILURE, error})
+};
+
+export const projectEditSubmit = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: PROJECT_EDIT_SUBMIT.REQUEST, request}),
+    // Send the response
+    success: response => ({type: PROJECT_EDIT_SUBMIT.SUCCESS, response }),
+    // Send the error
+    error: error => ({type: PROJECT_EDIT_SUBMIT.FAILURE, error})
+};
+
+export const notification = {
+    show: response => ({type: NOTIFICATION_SHOW, response}),
 };
