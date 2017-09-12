@@ -38,7 +38,7 @@ const users = (state = initialState, action) => {
         case actions.USERS.REQUEST:
             return {
                 ...state,
-                isFetching: false
+                isFetching: true
             };
         default:
             return state
