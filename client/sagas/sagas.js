@@ -29,11 +29,11 @@ function* watchProjectDelete() {
             const project = yield call(apiFetch, `/project/${request}/disable`, {
                 method: 'GET',
             });
-            yield put(actions.projectDelete.success(project));
+            yield put(actions.projectsDelete.success(project));
             yield put(actions.notification.show({message : projectMessages.DELETED_SUCCESS, title : 'Success!'}));
 
         } catch (e) {
-            yield put(actions.projectDelete.error(e));
+            yield put(actions.projectsDelete.error(e));
             yield put(actions.notification.show({message : projectMessages.DELETED_ERROR, title : 'Error!'}));
         }
     }

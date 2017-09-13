@@ -12,7 +12,7 @@ export default function Actions({ actions, entityId, children }) {
                     let link = `/${actions.entity}/${entityId}/${type}`;
                     switch (type) {
                         case 'delete' :
-                            return <Delete entityId={} key={index} type={type} callback={'hi!'} />;
+                            return <Delete entityId={entityId} key={index} entity={actions.entity} />;
                         case 'view' :
                             return <View key={index} type={type} link={link} />;
                         case 'update' :

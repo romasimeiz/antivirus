@@ -6,8 +6,9 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteProject(projectId) {
-            dispatch(AppActions.projectDelete.request(projectId))
+        deleteEntity(entity, id) {
+            console.log(`${entity}Delete`);
+            dispatch(AppActions[`${entity}Delete`].request(id))
         },
     };
 };

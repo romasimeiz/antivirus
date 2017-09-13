@@ -70,7 +70,7 @@ export const projectEdit = {
     error: error => ({type: PROJECT_EDIT.FAILURE, error})
 };
 
-export const projectDelete = {
+export const projectsDelete = {
     // Notify the intent to fetch recipes
     request: request => ({type: PROJECT_DELETE.REQUEST, request}),
     // Send the response
