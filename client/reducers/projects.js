@@ -6,7 +6,7 @@ const initialState = {
         {
             name: 'ID',
             className: '',
-            mapping: 'id'
+            mapping: 'id',
         },
         {
             name: 'Name',

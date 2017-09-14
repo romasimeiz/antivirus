@@ -8,6 +8,7 @@ import Home from '../containers/Home';
 import Users from '../containers/Users';
 import Files from '../containers/Files';
 import Projects from '../containers/Projects';
+import Profile from '../containers/Profile';
 import ProjectEdit from '../containers/ProjectEdit';
 import NotFound from '../components/NotFound';
 import { ConnectedRouter } from 'react-router-redux';
@@ -23,6 +24,7 @@ export default (
                         <Route path='/home' component={Home}/>
                         <Route path='/users' component={Users}/>
                         <Route exact path='/projects' component={Projects} />
+                        <Route exact path='/profile' component={Profile} />
                         <Route path='/projects/:projectId/files' component={Files}/>
                         <Route path='/projects/:projectId/update' component={ProjectEdit}/>
                         <Route component={NotFound}/>

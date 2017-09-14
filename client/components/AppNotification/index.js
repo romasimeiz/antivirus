@@ -7,16 +7,16 @@ export default class AppNotification extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: false,
+            noticeIsActive: false,
         }
     }
 
     disableMessage() {
-        this.setState( { isActive: false } );
+        this.setState( { noticeIsActive: false } );
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ isActive: nextProps.properties.isActive });
+        this.setState({ noticeIsActive: nextProps.properties.isActive });
     }
 
     render() {
@@ -24,7 +24,7 @@ export default class AppNotification extends Component {
         return (
             <div>
                 <Notification
-                    isActive={this.state.isActive}
+                    isActive={this.state.noticeIsActive}
                     message={properties.message}
                     action={properties.action}
                     title={properties.title}

@@ -18,6 +18,7 @@ export default class Sidebar extends Component {
                                         name={field.name}
                                         key={`li${index}`}
                                         className={field.className}
+                                        childrens={field.childrens}
                                     />
                                 );
                             })

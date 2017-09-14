@@ -15,7 +15,17 @@ const initialState = {
         },
         {
             name: 'Projects',
-            className: 'fa fa-tasks'
+            className: 'fa fa-desktop',
+            childrens: [
+                {
+                    name: 'test1',
+                    className: 'fa fa-tasks',
+                },
+                {
+                    name: 'test2',
+                    className: 'fa fa-tasks',
+                },
+            ]
         }
     ],
     clientsGrid: [
@@ -48,12 +58,11 @@ const initialState = {
 const auth = (state = initialState, action) => {
     switch (action.type) {
         case actions.LOGIN.SUCCESS:
-            localStorage.setItem('access_token', action.response.token);
-            localStorage.setItem('user', JSON.stringify(action.response.user));
-            //console.log( JSON.parse(localStorage.getItem('user')));
+            localStorage.setItem('access_token', action.response.data.token);
+            localStorage.setItem('user', JSON.stringify(action.response.data.user));
             return {
                 ...state,
-                user: action.response.user,
+                user: action.response.data.user,
                 isFetching: false
             };
         case actions.LOGIN.FAILURE:

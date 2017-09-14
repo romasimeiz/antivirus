@@ -163,6 +163,6 @@ export default function* rootSaga() {
         fork(watchFiles),
         fork(watchProjectEdit),
         fork(watchProjectEditSubmit),
-        fork(watchProjectDelete)
+        fork(watchProjectDelete),
     ]
 }

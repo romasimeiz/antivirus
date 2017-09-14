@@ -26,7 +26,6 @@ export default class Auth extends Component {
 
     render() {
         const {handleLogout, auth, notification} = this.props;
-        console.log('message', notification.message);
         return (
             <div className={"viewport " + (this.state.show ? '' : 'mini-navbar')}>
                 <AppNotification properties={notification} />
