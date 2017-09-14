@@ -15,6 +15,7 @@ export const PROJECT_EDIT        = createRequestTypes('PROJECT_EDIT');
 export const PROJECT_DELETE      = createRequestTypes('PROJECT_DELETE');
 export const PROJECT_EDIT_SUBMIT = createRequestTypes('PROJECT_EDIT_SUBMIT');
 export const NOTIFICATION_SHOW   = 'NOTIFICATION_SHOW';
+export const NOTIFICATION_HIDE   = 'NOTIFICATION_HIDE';
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -90,4 +91,5 @@ export const projectEditSubmit = {
 
 export const notification = {
     show: response => ({type: NOTIFICATION_SHOW, response}),
+    hide: response => ({type: NOTIFICATION_HIDE, response}),
 };

@@ -1,5 +1,6 @@
 import * as actions from "../actions/actions";
-import { call, put, take, fork } from 'redux-saga/effects';
+import { call, put, take, fork, wait } from 'redux-saga/effects';
+import {delay} from "redux-saga"
 import apiFetch from '../api';
 import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
@@ -114,6 +115,15 @@ function* watchUsers() {
     }
 }
 
+function* watchNotices() {
+    while (true) {
+        yield take(actions.NOTIFICATION_SHOW);
+        yield call(delay, 2000);
+        yield put(actions.notification.hide());
+    }
+}
+
+
 function* watchProjects() {
     while (true) {
         yield take(actions.PROJECTS.REQUEST);
@@ -164,5 +174,6 @@ export default function* rootSaga() {
         fork(watchProjectEdit),
         fork(watchProjectEditSubmit),
         fork(watchProjectDelete),
+        fork(watchNotices),
     ]
 }
