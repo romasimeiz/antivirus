@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Row from './Row';
 import PropTypes from 'prop-types';
 
-export default function SecondLevelMenu({childrens}) {
-    return (
-        <ul className="nav nav-second-level collapse in">
-        {
+export default class SecondLevelMenu extends Component {
+    render () {
+        const {childrens, className} = this.props;
+        return (
+            <ul className={className}>
+            {
                 childrens.map((field, index) => {
                     return(
                         <Row
@@ -16,9 +18,13 @@ export default function SecondLevelMenu({childrens}) {
                     )
                 })
             }
-        </ul>
-    )
+            </ul>
+        )
+    }
 }
+
+
+
 
 SecondLevelMenu.displayName = 'Second Level Menu';
 
