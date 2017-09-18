@@ -1,3 +1,30 @@
 #page-wrapper{
   min-height: 100vh;
 }
+
+@media (max-width: 768px) {
+  .body-small {
+    .navbar-static-side {
+      margin-left: -70px;
+      visibility: hidden;
+      z-index: 2001;
+      position: absolute;
+      width: 70px;
+      display: block;
+      transition: all 0s;
+    }
+
+    &.mini-navbar {
+      .navbar-static-side {
+        margin-left: 0;
+        visibility: visible;
+        display: block;
+        transition: all 0.4s;
+
+        .nav-header {
+          transition: all 0s;
+        }
+      }
+    }
+  }
+}

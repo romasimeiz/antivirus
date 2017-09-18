@@ -14,7 +14,7 @@ const middleware = routerMiddleware(history);
 
 
 const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(sagaMiddleware, middleware, logger),
+    applyMiddleware(sagaMiddleware, middleware, logger)
     // other store enhancers if any
 ));
 
