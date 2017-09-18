@@ -5,7 +5,7 @@ export default class Header extends Component {
     render() {
         return (
             <div className="row border-bottom">
-                <nav className="navbar navbar-static-top white-bg" role="navigation">
+                <nav className="navbar navbar-static-top gray-bg" role="navigation">
                     <div className="navbar-header">
                         <a className="navbar-minimalize minimalize-styl-2 btn btn-primary" onClick={this.props.toggle}><i
                             className="fa fa-bars"/> </a>

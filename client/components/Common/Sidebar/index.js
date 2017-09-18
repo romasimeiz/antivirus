@@ -7,18 +7,18 @@ export default class Sidebar extends Component {
 
     render() {
         return (
-            <nav className="navbar-default navbar-static-side" role="navigation">
+            <nav className={ "navbar-default navbar-static-side animated" + (this.props.show ? " fadeIn" : "") } role="navigation">
                 <div className="sidebar-collapse">
                     <ul className="nav metismenu" id="side-menu">
-                        <SidebarHeader url={this.props.user.photo} name={this.props.user.name} toggle={this.toggleSidebar}/>
+                        <SidebarHeader url={ this.props.user.photo } name={ this.props.user.name } toggle={ this.toggleSidebar } />
                         {
                             this.props.fields.map((field, index) => {
                                 return (
                                     <Row
-                                        name={field.name}
-                                        key={`li${index}`}
-                                        className={field.className}
-                                        childrens={field.childrens}
+                                        name={ field.name }
+                                        key={ `li${index}` }
+                                        className={ field.className }
+                                        childrens={ field.childrens }
                                     />
                                 );
                             })
@@ -29,4 +29,5 @@ export default class Sidebar extends Component {
         );
     }
 }
+
 Sidebar.displayName = 'Sidebar';
