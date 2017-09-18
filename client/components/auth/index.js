@@ -32,6 +32,7 @@ export default class Auth extends Component {
                 <Sidebar user={auth.user} fields={auth.sideBar}/>
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={handleLogout} toggle={this.toggleSidebar}/>
+                    /*<PageHeading />*/
                     <div className="body">
                         <h1>Auth</h1>
                         {this.props.children}
