@@ -1,23 +1,43 @@
 import React, { Component } from 'react';
+import Breadcrumbs from 'react-breadcrumbs';
+
 import './style.scss';
+
+const routes = [
+    {
+        path: '/users',
+        name: 'Users',
+    },
+    {
+        path: '/projects',
+        name: 'Projects',
+    }];
+
+var userlist = [
+    {id:"1", name:"John"},
+    {id:"2", name:"Rambo"},
+];
 
 export default class PageHeading extends Component {
     render() {
         return (
             <div className="row wrapper border-bottom white-bg page-heading">
                 <div className="col-lg-10">
-                    <h2>This is title</h2>
+                    <h2>{this.props.title ? this.props.title : ''}</h2>
                     <ol className="breadcrumb">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li className="active">
-                            <strong>Current page</strong>
-                        </li>
+                        <Breadcrumbs
+                            routes={routes}
+                            params={{}}
+                        />
+                        {/*<li>*/}
+                            {/*<a href="/">Home</a>*/}
+                        {/*</li>*/}
+                        {/*<li className="active">*/}
+                            {/*<strong>Current page</strong>*/}
+                        {/*</li>*/}
                     </ol>
                 </div>
                 <div className="col-lg-2">
-
                 </div>
             </div>
         )
