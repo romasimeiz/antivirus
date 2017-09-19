@@ -13,6 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-webpack-plugin": "^4.0.1",
+    "dotenv": "^4.0.0",
+    "extract-text-webpack-plugin": "^3.0.0",
     "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-breadcrumbs": "^1.6.6",
@@ -29,6 +33,7 @@
     "redux-form": "^7.0.3",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1",
+    "url-loader": "^0.5.9",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

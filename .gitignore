@@ -1,8 +1,9 @@
 .DS_STORE
 node_modules
-#static
+static/*
 .module-cache
 *.log*
 _nogit
 .idea/
-config.json
+package-lock.json
+/.env
