@@ -20,6 +20,7 @@ export default class Auth extends Component {
             width: window.innerWidth,
             height: window.innerHeight
         };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     toggleSidebar = () => {
@@ -39,12 +40,11 @@ export default class Auth extends Component {
     }
 
     componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', () => this.updateWindowDimensions());
+        window.addEventListener('resize', this.updateWindowDimensions);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', () => this.updateWindowDimensions());
+        window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
     updateWindowDimensions() {

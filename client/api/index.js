@@ -13,12 +13,6 @@ const globalOptions = {
 };
 
 /**
- * Api URL
- */
-//const apiUrl = 'http://antivirus.local/api';
-const apiUrl = document.host;
-
-/**
  * Parses the JSON returned by a network request
  *
  * @param  {object} response A response from a network request
@@ -61,7 +55,7 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
     let newOptions = Object.assign({}, globalOptions, options);
-    const newUrl = apiUrl + url;
+    const newUrl = API_URL + url;
     const token = localStorage.getItem('access_token') || null;
     if (token) {
         newOptions = {

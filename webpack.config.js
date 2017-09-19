@@ -1,59 +1,41 @@
 const webpack = require('webpack');
-const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
 
-const sourcePath = path.join(__dirname, './client');
-const staticsPath = path.join(__dirname, './static');
+const SOURCE_PATH = path.join(__dirname, './client');
+const PUBLIC_PATH = path.join(__dirname, './static');
 
-module.exports = function (env) {
-    const nodeEnv = env && env.prod ? 'production' : 'development';
-    const isProd = nodeEnv === 'production';
+require('dotenv').config();
 
+module.exports = function () {
+    const isProduction = process.env.NODE_ENV === 'production';
     const plugins = [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity,
-            filename: 'vendor.bundle.js'
-        }),
+        new CleanWebpackPlugin(PUBLIC_PATH + '/*'),
+        new ExtractTextPlugin('/assets/css/style.css'),
         new webpack.DefinePlugin({
-            'process.env': {NODE_ENV: JSON.stringify(nodeEnv)}
+            "process.env": {
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+            },
+            API_URL: JSON.stringify(process.env.API_URL)
         }),
-        new webpack.NamedModulesPlugin(),
+        new CopyWebpackPlugin([
+            {
+                from: SOURCE_PATH + '/assets/img/*',
+                to: PUBLIC_PATH
+            }
+        ])
     ];
 
-    if (isProd) {
+    if (isProduction) {
         plugins.push(
             new webpack.LoaderOptionsPlugin({
                 minimize: true,
                 debug: false
             }),
-            new CopyWebpackPlugin([
-                {
-                    to: staticsPath,
-                    from: sourcePath + '/assets/img/**/*'
-                },
-                {
-                    to: sourcePath + '/components/app/style.scss',
-                    from: sourcePath + '/assets/css/style.css'
-                },
-            ]),
             new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false,
-                    screw_ie8: true,
-                    conditionals: true,
-                    unused: true,
-                    comparisons: true,
-                    sequences: true,
-                    dead_code: true,
-                    evaluate: true,
-                    if_return: true,
-                    join_vars: true,
-                },
-                output: {
-                    comments: false,
-                },
+                compress: true
             })
         );
     } else {
@@ -63,15 +45,15 @@ module.exports = function (env) {
     }
 
     return {
-        devtool: isProd ? 'source-map' : 'eval',
-        context: sourcePath,
+        devtool: isProduction ? 'source-map' : 'eval',
+        context: SOURCE_PATH,
         entry: {
             js: './index.js',
             vendor: ['react']
         },
         output: {
-            path: staticsPath,
-            filename: '[name].bundle.js',
+            path: PUBLIC_PATH,
+            filename: 'assets/js/[name].bundle.js'
         },
         module: {
             rules: [
@@ -82,25 +64,11 @@ module.exports = function (env) {
                         loader: 'file-loader',
                         query: {
                             name: '[name].[ext]'
-                        },
-                    },
+                        }
+                    }
                 },
                 {
-                    test: /\.scss$/,
-                    exclude: /node_modules/,
-                    use: [
-                        'style-loader',
-                        'css-loader',
-                        'sass-loader'
-                    ]
-                },
-                {
-                    test: /\.css$/,
-                    loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }),
-                    exclude: /node_modules/
-                },
-                {
-                    test: /\.(js|jsx)$/,
+                    test: /\.(jsx?)$/,
                     exclude: /node_modules/,
                     loader: 'babel-loader',
                     query: {
@@ -108,58 +76,51 @@ module.exports = function (env) {
                         plugins: ["transform-object-rest-spread", 'transform-runtime']
                     }
                 },
-            ],
+                {
+                    test: /\.css$/,
+                    exclude: /node_modules/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [
+                            {
+                                loader:'css-loader',
+                                options: {
+                                    root: '.'
+                                }
+                            }
+                        ]
+                    })
+                },
+                {
+                    test: /\.scss$/,
+                    exclude: /node_modules/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: ['css-loader','sass-loader']
+                    })
+                },
+                {
+                    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                    loader: 'url-loader',
+                    options: {
+                        name: '/[path][name].[ext]',
+                        limit: 10000
+                    }
+                }
+            ]
         },
         resolve: {
             extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
             modules: [
                 path.resolve(__dirname, 'node_modules'),
-                sourcePath
+                SOURCE_PATH
             ]
         },
-
-        plugins,
-        performance: isProd && {
+        performance: isProduction && {
             maxAssetSize: 100,
             maxEntrypointSize: 300,
-            hints: 'warning',
+            hints: 'warning'
         },
-
-        stats: {
-            colors: {
-                green: '\u001b[32m',
-            }
-        },
-
-        externals: {
-            'Config': JSON.stringify( isProd ?
-                require('./config.prod.json')
-                :
-                require('./config.json')
-            )
-        },
-
-        devServer: {
-            contentBase: './client',
-            historyApiFallback: true,
-            port: 3000,
-            compress: isProd,
-            inline: !isProd,
-            hot: !isProd,
-            stats: {
-                assets: true,
-                children: false,
-                chunks: false,
-                hash: false,
-                modules: false,
-                publicPath: false,
-                timings: true,
-                version: false,
-                warnings: true,
-                colors: {
-                    green: '\u001b[32m',
-                }
-            },
-        }
+        plugins: plugins
     };
 };
