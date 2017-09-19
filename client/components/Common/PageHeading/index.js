@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import Breadcrumbs from 'react-breadcrumbs';
 
 import './style.scss';
-
-const routes = [
-    {
-        path: '/users',
-        name: 'Users',
-    },
-    {
-        path: '/projects',
-        name: 'Projects',
-    }];
+import {Breadcrumbs} from 'react-breadcrumbs-dynamic'
+// const routes = [
+//     {
+//         path: '/users',
+//         name: 'Users',
+//     },
+//     {
+//         path: '/projects',
+//         name: 'Projects',
+//     }];
 
 var userlist = [
     {id:"1", name:"John"},
@@ -26,8 +25,8 @@ export default class PageHeading extends Component {
                     <h2>{this.props.title ? this.props.title : ''}</h2>
                     <ol className="breadcrumb">
                         <Breadcrumbs
-                            routes={routes}
-                            params={{}}
+                            separator={<b> / </b>}
+                            finalItem={'b'}
                         />
                         {/*<li>*/}
                             {/*<a href="/">Home</a>*/}

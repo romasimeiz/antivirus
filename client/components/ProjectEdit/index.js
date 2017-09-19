@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
 import Spinner from '../Common/Spinner';
+import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic'
+
 import './project-form.scss';
 
 const renderField = ({style, input, label, type, meta: { touched, error } }) =>
@@ -27,10 +29,17 @@ export default class ProjectEdit extends Component {
     }
 
     render() {
-        const {isFetching, handleFormSubmit, handleSubmit, users, project, onSubmit, error } = this.props;
+        const {isFetching, handleFormSubmit, handleSubmit, users, initialValues, onSubmit, error } = this.props;
         const usersArray = users.data ? users.data : null;
         return (
+
             <div className="middle-box loginscreen animated fadeInDown">
+                {
+                    initialValues ? <BreadcrumbsItem to={`/projects/${initialValues.id}/update`}>
+                        Update
+                    </BreadcrumbsItem> : ''
+                }
+
                 <Spinner isFetching={isFetching} />
                 <form onSubmit={handleSubmit(onSubmit)} className="m-t">
                     <Field name="user_id" component="select" className="form-control m-b">

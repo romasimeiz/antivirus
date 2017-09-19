@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const sourcePath = path.join(__dirname, './client');
 const staticsPath = path.join(__dirname, './static');
@@ -26,6 +28,16 @@ module.exports = function (env) {
                 minimize: true,
                 debug: false
             }),
+            new CopyWebpackPlugin([
+                {
+                    to: staticsPath,
+                    from: sourcePath + '/assets/img/**/*'
+                },
+                {
+                    to: sourcePath + '/components/app/style.scss',
+                    from: sourcePath + '/assets/css/style.css'
+                },
+            ]),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false,
@@ -82,7 +94,11 @@ module.exports = function (env) {
                         'sass-loader'
                     ]
                 },
-                {test: /\.css$/, loader: "style-loader!css-loader"},
+                {
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }),
+                    exclude: /node_modules/
+                },
                 {
                     test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
@@ -103,7 +119,6 @@ module.exports = function (env) {
         },
 
         plugins,
-
         performance: isProd && {
             maxAssetSize: 100,
             maxEntrypointSize: 300,
@@ -114,6 +129,14 @@ module.exports = function (env) {
             colors: {
                 green: '\u001b[32m',
             }
+        },
+
+        externals: {
+            'Config': JSON.stringify( isProd ?
+                require('./config.prod.json')
+                :
+                require('./config.json')
+            )
         },
 
         devServer: {

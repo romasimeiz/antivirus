@@ -3,7 +3,9 @@ import Header from '../Common/Header';
 import Sidebar from '../Common/Sidebar';
 import Footer from '../Common/Footer';
 import PageHeading from '../Common/PageHeading';
-import AppNotification from '../AppNotification'
+import AppNotification from '../AppNotification';
+
+
 import './style.scss';
 
 const NAVBAR_STORAGE_KEY = 'navbar';
@@ -53,7 +55,7 @@ export default class Auth extends Component {
 
         document.body.classList.toggle('mini-navbar', !this.state.show);
         document.body.classList.toggle('body-small', this.state.width <= BODY_SMALL_WIDTH);
-
+        console.log(this.props);
         return (
             <div className="viewport">
                 <AppNotification properties={ notification } />

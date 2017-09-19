@@ -9,6 +9,7 @@ export default function App({children}) {
         </div>
     );
 }
+
 App.propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.array.isRequired
 };
