@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Common/Header';
 import Sidebar from '../Common/Sidebar';
+import Content from '../Common/Content';
 import Footer from '../Common/Footer';
 import PageHeading from '../Common/PageHeading';
 import AppNotification from '../AppNotification';
@@ -32,7 +33,7 @@ export default class Auth extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.location !== this.props.location) {
+        if (nextProps.location.pathname !== this.props.location.pathname) {
             this.props.checkAuthentication();
         }
     }
@@ -52,21 +53,24 @@ export default class Auth extends Component {
 
     render() {
         const {handleLogout, auth, notification} = this.props;
+        let bodyClassName = 'viewport pace-done body';
 
-        document.body.classList.toggle('mini-navbar', !this.state.show);
-        document.body.classList.toggle('body-small', this.state.width <= BODY_SMALL_WIDTH);
-        console.log(this.props);
+        if (!this.state.show) {
+            bodyClassName += ' mini-navbar';
+        }
+
+        if (this.state.width <= BODY_SMALL_WIDTH) {
+            bodyClassName += ' body-small';
+        }
+
         return (
-            <div className="viewport">
+            <div className={ bodyClassName }>
                 <AppNotification properties={ notification } />
                 <Sidebar user={ auth.user } fields={ auth.sideBar } show={ this.state.show } />
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={ handleLogout } toggle={ this.toggleSidebar } />
                     <PageHeading />
-                    <div className="body">
-                        <h1>Auth</h1>
-                        { this.props.children }
-                    </div>
+                    <Content>{ this.props.children }</Content>
                     <Footer />
                 </div>
             </div>
