@@ -52,7 +52,7 @@ export default class Auth extends Component {
     }
 
     render() {
-        const {handleLogout, auth, notification} = this.props;
+        const {handleLogout, auth, notification, router} = this.props;
         let bodyClassName = 'viewport pace-done body';
 
         if (!this.state.show) {
@@ -69,7 +69,7 @@ export default class Auth extends Component {
                 <Sidebar user={ auth.user } fields={ auth.sideBar } show={ this.state.show } />
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={ handleLogout } toggle={ this.toggleSidebar } />
-                    <PageHeading />
+                    <PageHeading router={router} />
                     <Content>{ this.props.children }</Content>
                     <Footer />
                 </div>

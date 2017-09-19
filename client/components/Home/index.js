@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {BreadcrumbsItem} from 'react-breadcrumbs-dynamic'
-
 import './home.scss';
 
 export default class Home extends Component {

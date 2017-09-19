@@ -13,13 +13,9 @@ import ProjectEdit from '../containers/ProjectEdit';
 import NotFound from '../components/NotFound';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
-import { BreadcrumbsItem } from 'react-breadcrumbs-dynamic';
 
 export default (
     <App>
-        <BreadcrumbsItem to='/'>
-            Home
-        </BreadcrumbsItem>
         <ConnectedRouter history={history}>
             <Switch>
                 <Route exact path='/' component={Login}/>

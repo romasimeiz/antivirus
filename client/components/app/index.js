@@ -11,5 +11,5 @@ export default function App({children}) {
 }
 
 App.propTypes = {
-    children: PropTypes.array.isRequired
+    children: PropTypes.object.isRequired
 };
