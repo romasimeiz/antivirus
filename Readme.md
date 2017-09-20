@@ -1,4 +1,4 @@
-#Antivirus
+# Antivirus
 
 ## Setup
 
@@ -22,6 +22,16 @@ $ npm run prod
 
 ```
 $ npm run build
+```
+
+## Git Pre Commit Hook
+```
+$ npm run build
+$ git add './production/*'
+```
+**Insert here**
+```
+.git/hooks/pre-commit
 ```
 
 # License

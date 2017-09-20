@@ -3,14 +3,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
-
+const isProduction = process.env.NODE_ENV === 'production';
 const SOURCE_PATH = path.join(__dirname, './client');
-const PUBLIC_PATH = path.join(__dirname, './static');
+const PUBLIC_PATH = path.join(__dirname, './' + (isProduction ? 'production' : 'static'));
 
-require('dotenv').config();
+require('dotenv').config({path: isProduction ? '.env.production' : '.env'});
 
 module.exports = function () {
-    const isProduction = process.env.NODE_ENV === 'production';
     const plugins = [
         new CleanWebpackPlugin(PUBLIC_PATH + '/*'),
         new ExtractTextPlugin('/assets/css/style.css'),
