@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
+import urls from '../../../router/breadcrumbs';
 import {NavLink} from 'react-router-dom';
-import _ from 'lodash';
 
 export default class Breadcrumbs extends Component {
 
-
-            // :
-            //     return [{title: 'Home', url:'/home'}, {title: 'Projects', url:'/projects'}, {title: '1'}, {title: 'Update'}];
-            // '/projects' :
-            //     return [{title: 'Home', url:'/home'}, {title: 'Update'}];
-
-
     render() {
-
-        const urls =
-        {
-            '/projects/\d/update':  [{title: 'Home', url:'/home'}, {title: 'Projects', url:'/projects'}, {title: '1'}, {title: 'Update'}],
-            '/projects' : [{title: 'Home', url:'/home'}, {title: 'Projects'}]
-        };
-
         const {router} = this.props;
-        let breadcrumbs = _.get(urls, router.location.pathname) ? _.get(urls, router.location.pathname) : [{title: 'Home'}];
+        let breadcrumbs = [{title: 'Home'}];
+        let parameter = null;
+        urls.map( (value) => {
+            let matches = value.regexp.exec(router.location.pathname) ;
+            if(matches !== null) {
+                breadcrumbs = value.breadcrumbs;
+                parameter = matches[1];
+            }
+        });
+
         return (
             <ol className="breadcrumb">
                 {
                     breadcrumbs.map((value, index) => {
-                        return <li key={index}>
+                        value.title = parameter ? value.title.replace('{parameter}', parameter) : value.title;
+                        return (
+                            <li key={index}>
                             {
+
                                 value.url ?
                                     <NavLink to={value.url}> {value.title} </NavLink>
                                         :
                                     value.title
                             }
                             </li>
+                        )
                     })
                 }
             </ol>
