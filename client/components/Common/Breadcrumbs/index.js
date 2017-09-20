@@ -10,11 +10,13 @@ export default class Breadcrumbs extends Component {
         let parameter = null;
         let urlsArray = urls;
 
+        console.log(urlsArray, urlsArray[2].regexp.test('/projects'));
         urlsArray.map( (value) => {
-            let matches = value.regexp.exec(router.location.pathname) ;
-            if(matches !== null) {
-                let breadcrumbs = value.breadcrumbs;
-                let parameter = matches[1];
+            let matches = router.location.pathname.match(value.regexp);
+            // console.log(matches);
+            if(matches) {
+                breadcrumbs = value.breadcrumbs;
+                parameter = value.regexp.exec(router.location.pathname)[1];
             }
         });
 
@@ -22,17 +24,15 @@ export default class Breadcrumbs extends Component {
             <ol className="breadcrumb">
                 {
                     breadcrumbs.map((value, index) => {
-                        value.title = parameter ? value.title.replace('{parameter}', parameter) : value.title;
-                        console.log(parameter);
-                        console.log(value.title);
+                        let title = parameter ? value.title.replace('{parameter}', parameter) : value.title;
                         return (
                             <li key={index}>
                             {
 
                                 value.url ?
-                                    <NavLink to={value.url}> {value.title} </NavLink>
+                                    <NavLink to={value.url}> {title} </NavLink>
                                         :
-                                    value.title
+                                    title
                             }
                             </li>
                         )
