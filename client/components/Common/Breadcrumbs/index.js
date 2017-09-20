@@ -3,16 +3,18 @@ import urls from '../../../router/breadcrumbs';
 import {NavLink} from 'react-router-dom';
 
 export default class Breadcrumbs extends Component {
-
     render() {
-        const {router} = this.props;
+
+        let {router} = this.props;
         let breadcrumbs = [{title: 'Home'}];
         let parameter = null;
-        urls.map( (value) => {
+        let urlsArray = urls;
+
+        urlsArray.map( (value) => {
             let matches = value.regexp.exec(router.location.pathname) ;
             if(matches !== null) {
-                breadcrumbs = value.breadcrumbs;
-                parameter = matches[1];
+                let breadcrumbs = value.breadcrumbs;
+                let parameter = matches[1];
             }
         });
 
@@ -21,6 +23,8 @@ export default class Breadcrumbs extends Component {
                 {
                     breadcrumbs.map((value, index) => {
                         value.title = parameter ? value.title.replace('{parameter}', parameter) : value.title;
+                        console.log(parameter);
+                        console.log(value.title);
                         return (
                             <li key={index}>
                             {
