@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '../Common/Grid';
 
 import './projects.scss';
+import {NavLink} from 'react-router-dom';
 
 export default class Projects extends Component {
     constructor(props){
@@ -15,6 +16,7 @@ export default class Projects extends Component {
     render() {
         return (
             <div>
+                <NavLink to={'/projects/create'} />
                 <Grid
                     fields={this.props.fields}
                     data={this.props.projects}
