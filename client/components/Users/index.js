@@ -10,7 +10,11 @@ export default class Users extends Component {
     render() {
         return (
             <div>
-                <Grid fields={this.props.fields} data={this.props.users}/>
+                <Grid fields={this.props.fields}
+                      data={this.props.users}
+                      pageClick={this.props.getUsers}
+                      pagesCount={this.props.pagesCount}
+                />
             </div>
         );
     }

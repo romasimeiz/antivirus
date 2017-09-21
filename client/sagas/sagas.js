@@ -6,7 +6,6 @@ import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
 import projectMessages from '../messages/project-messages';
 
-
 function* watchLogin() {
     while (true) {
         const {request} = yield take(actions.LOGIN.REQUEST);
@@ -103,12 +102,18 @@ function* watchLogout() {
 
 function* watchUsers() {
     while (true) {
-        yield take(actions.USERS.REQUEST);
+        const {request} = yield take(actions.USERS.REQUEST);
         try {
+            const page = request ? request : 1;
             const users = yield call(apiFetch, '/user', {
-                method: 'GET'
+                method: 'GET',
+                query: {
+                    page,
+                    per_page: PER_PAGE
+                }
             });
-            yield put(actions.users.success(users));
+            const pagesCount = Math.ceil(users.data.total / 2 );
+            yield put(actions.users.success({users, pagesCount}));
         } catch (e) {
             yield put(actions.users.error(e))
         }
@@ -126,18 +131,23 @@ function* watchNotices() {
 
 function* watchProjects() {
     while (true) {
-        yield take(actions.PROJECTS.REQUEST);
+        const {request} = yield take(actions.PROJECTS.REQUEST);
+        const page = request ? request : 1;
         try {
             const projects = yield call(apiFetch, '/project', {
-                method: 'GET'
+                method: 'GET',
+                query: {
+                    page    : page,
+                    per_page: PER_PAGE,
+                }
             });
 
             projects.data.data.map( (value) => {
                 value.link = `/projects/${value.id}/files`;
                 return value;
             });
-
-            yield put(actions.projects.success(projects));
+            const pagesCount = Math.ceil(projects.data.total / 2 );
+            yield put(actions.projects.success({projects, pagesCount}));
         } catch (e) {
             yield put(actions.projects.error(e))
         }

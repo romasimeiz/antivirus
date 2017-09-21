@@ -5,13 +5,15 @@ import * as AppActions from '../actions/actions';
 
 const mapStateToProps = state => ({
     fields : state.users.usersGrid,
-    users : state.users.users
+    users : state.users.users,
+    pagesCount: state.users.pagesCount
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUsers() {
-            dispatch(AppActions.users.request());
+        getUsers(page) {
+            page = page ? page : 1;
+            dispatch(AppActions.users.request(page));
         }
     };
 };

@@ -10,10 +10,8 @@ export default class Breadcrumbs extends Component {
         let parameter = null;
         let urlsArray = urls;
 
-        console.log(urlsArray, urlsArray[2].regexp.test('/projects'));
         urlsArray.map( (value) => {
             let matches = router.location.pathname.match(value.regexp);
-            // console.log(matches);
             if(matches) {
                 breadcrumbs = value.breadcrumbs;
                 parameter = value.regexp.exec(router.location.pathname)[1];

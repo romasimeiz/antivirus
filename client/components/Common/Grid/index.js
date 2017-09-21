@@ -6,6 +6,8 @@ import CellHeader from './CellHeader';
 import CellBody from './CellBody';
 import Actions from './Actions';
 import _ from 'lodash';
+import ReactPaginate from 'react-paginate';
+
 
 import './style.scss';
 
@@ -42,11 +44,23 @@ const buildBody = (fields, data, actions, pushToRoute) => {
 };
 
 export default class Grid extends Component {
+
+    handlePageClick = (data) => {
+        let page = data.selected + 1;
+        this.props.pageClick(page);
+    };
+
+
+
     render() {
-        const {fields, data, children, actions, pushToRoute} = this.props;
+        const {fields, data, children, actions, pushToRoute, pagesCount, pageClick} = this.props;
         return (
-            <div>
-                <table className="table table-bordered">
+            <div className="ibox float-e-margins">
+                <div className="ibox-title">
+                    <h5>Title...</h5>
+                </div>
+                <div className="ibox-content">
+                <table className="table table-hover">
                     <Header>
                         <Row>
                             {
@@ -66,6 +80,18 @@ export default class Grid extends Component {
                     { data.data ? buildBody(fields, data.data, actions, pushToRoute) : null }
                     {children}
                 </table>
+                <ReactPaginate previousLabel={"<< Previous"}
+                               nextLabel={"Next >>"}
+                               breakLabel={<a href="">...</a>}
+                               breakClassName={"break-me"}
+                               pageCount={pagesCount}
+                               marginPagesDisplayed={2}
+                               pageRangeDisplayed={5}
+                               onPageChange={this.handlePageClick}
+                               containerClassName={"pagination"}
+                               subContainerClassName={"pages pagination"}
+                               activeClassName={"active"} />
+                </div>
             </div>
         );
     }

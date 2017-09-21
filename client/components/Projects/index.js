@@ -15,7 +15,14 @@ export default class Projects extends Component {
     render() {
         return (
             <div>
-                <Grid fields={this.props.fields} data={this.props.projects} actions={this.props.actions} pushToRoute={this.props.pushToRoute} />
+                <Grid
+                    fields={this.props.fields}
+                    data={this.props.projects}
+                    actions={this.props.actions}
+                    pushToRoute={this.props.pushToRoute}
+                    pagesCount={this.props.pagesCount}
+                    pageClick={this.props.getProjects}
+                />
             </div>
         );
     }

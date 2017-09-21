@@ -55,7 +55,15 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
     let newOptions = Object.assign({}, globalOptions, options);
-    const newUrl = API_URL + url;
+    let newUrl = API_URL + url;
+    let searchParams = null;
+    if(options.query) {
+        searchParams = new URLSearchParams();
+        Object.keys(options.query).map((key) => {
+            searchParams.set(key, options.query[key]);
+        });
+    }
+    newUrl+= searchParams ? `?${searchParams}` : '';
     const token = localStorage.getItem('access_token') || null;
     if (token) {
         newOptions = {

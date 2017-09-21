@@ -6,13 +6,15 @@ import * as AppActions from '../actions/actions';
 const mapStateToProps = state => ({
     fields: state.projects.projectsGrid,
     projects: state.projects.projects,
+    pagesCount: state.projects.pagesCount,
     actions: state.projects.actions
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProjects() {
-            dispatch(AppActions.projects.request());
+        getProjects(page) {
+            const toPage = page ? page : 1;
+            dispatch(AppActions.projects.request(toPage));
         },
         pushToRoute(route) {
             dispatch(push(route));

@@ -17,7 +17,8 @@ module.exports = function () {
             "process.env": {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV)
             },
-            API_URL: JSON.stringify(process.env.API_URL)
+            API_URL: JSON.stringify(process.env.API_URL),
+            PER_PAGE: JSON.stringify(process.env.PER_PAGE)
         }),
         new CopyWebpackPlugin([
             {
