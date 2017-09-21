@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '../Common/Grid';
 
 import './projects.scss';
+import {NavLink} from 'react-router-dom';
 
 export default class Projects extends Component {
     constructor(props){
@@ -15,7 +16,15 @@ export default class Projects extends Component {
     render() {
         return (
             <div>
-                <Grid fields={this.props.fields} data={this.props.projects} actions={this.props.actions} pushToRoute={this.props.pushToRoute} />
+                <NavLink to={'/projects/create'} />
+                <Grid
+                    fields={this.props.fields}
+                    data={this.props.projects}
+                    actions={this.props.actions}
+                    pushToRoute={this.props.pushToRoute}
+                    pagesCount={this.props.pagesCount}
+                    pageClick={this.props.getProjects}
+                />
             </div>
         );
     }

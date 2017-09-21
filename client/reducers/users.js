@@ -2,6 +2,7 @@ import * as actions from "../actions/actions";
 
 const initialState = {
     users : [],
+    pagesCount: 1,
     usersGrid: [
         {
             name: 'ID',
@@ -26,7 +27,8 @@ const users = (state = initialState, action) => {
         case actions.USERS.SUCCESS:
             return {
                 ...state,
-                users: action.response.data,
+                users: action.response.users.data,
+                pagesCount: action.response.pagesCount,
                 isFetching: false
             };
         case actions.USERS.FAILURE:
