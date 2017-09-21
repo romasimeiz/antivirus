@@ -17,7 +17,7 @@ export default class PageHeading extends Component {
             <div className="row wrapper border-bottom white-bg page-heading">
                 <div className="col-lg-10">
                     <h2>{this.props.title ? this.props.title : ''}</h2>
-                    <Breadcrumbs router={this.props.router} breadcrumbs={['Foo', 'Bar', 'Yahoo']} />
+                    <Breadcrumbs router={this.props.router} />
                     {/*<ol className="breadcrumb">*/}
                         {/*/!*<Breadcrumbs*!/*/}
                             {/*/!*separator={<b> / </b>}*!/*/}
