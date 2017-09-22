@@ -26,6 +26,10 @@ const initialState = {
                     className: 'fa fa-tasks',
                 },
             ]
+        },
+        {
+            name: 'Example',
+            className: 'fa fa-file-text-o'
         }
     ],
     clientsGrid: [

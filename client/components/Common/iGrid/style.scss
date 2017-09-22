@@ -1,0 +1,55 @@
+.grid {
+  &.without-title {
+    &::before {
+      content: '';
+      width: 100%;
+      border-color: #e7eaec;
+      border-image: none;
+      border-style: solid solid none;
+      border-width: 3px 0 0;
+    }
+
+    .ibox-content {
+      border: none;
+    }
+  }
+
+  .table {
+    &.no-margin {
+      margin: 0;
+    }
+
+    &.without-thead {
+      tbody {
+        tr:first-child {
+          td {
+            border: none;
+          }
+        }
+      }
+    }
+
+    &.table-bordered {
+      & > thead,
+      & > tfoot {
+        & > tr {
+          & > th,
+          & > td {
+            background-color: #F5F5F6;
+          }
+        }
+      }
+    }
+  }
+
+
+  .ibox-content {
+    &.hide {
+      display: block !important;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 0;
+    }
+  }
+}
