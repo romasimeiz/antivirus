@@ -14,9 +14,9 @@ const paginate = function (props) {
                 />
             </div>
         );
-    } else {
-        return null;
     }
+
+    return null;
 };
 
 export default paginate;

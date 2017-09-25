@@ -119,10 +119,7 @@ export default class Grid extends Component {
 
     render() {
         return (
-            <Wrapper
-                { ...config.wrapper }
-                { ...this.props }
-            >
+            <Wrapper { ...config.wrapper } { ...this.props } >
                 <Table
                     { ...config.table }
                     { ...this.props }

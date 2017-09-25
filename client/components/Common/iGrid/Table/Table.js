@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import Table from './fragments/table';
 
-/**
- * Fields:
- * {
- *  id: 'User ID',
- *  name: 'User Name',
- *  email: 'User Email'
- * }
- */
 export default class extends Component {
     constructor(props) {
         super(props);
