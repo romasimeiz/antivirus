@@ -1,9 +1,12 @@
+$tableBorderedHeadColor: #f5f5f6;
+$borderColor: #e7eaec;
+
 .grid {
   &.without-title {
     &::before {
       content: '';
       width: 100%;
-      border-color: #e7eaec;
+      border-color: $borderColor;
       border-image: none;
       border-style: solid solid none;
       border-width: 3px 0 0;
@@ -35,7 +38,7 @@
         & > tr {
           & > th,
           & > td {
-            background-color: #F5F5F6;
+            background-color: $tableBorderedHeadColor;
           }
         }
       }
