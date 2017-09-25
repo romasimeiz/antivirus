@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import BaseComponent from './BaseComponent'
 import Grid from '../Common/iGrid';
-import Update from '../Common/Actions/update';
-import View from '../Common/Actions/view';
-import Delete from '../../containers/Delete';
 
 export default class  BaseGrid extends BaseComponent {
     constructor(props){
@@ -31,18 +28,6 @@ export default class  BaseGrid extends BaseComponent {
         this.props.getData(this._page, this._sort);
     }
 
-    setActions(data) {
-        let link = `/${ this.props.type }/${ data.id }/`;
-
-        return (
-            <div className="actions">
-                <View key={ 'view_btn_' + data.id } type="view"  link={ link + 'view' } />
-                <Update key={ 'update_btn_' + data.id } type="update" link={ link + 'update' } />
-                <Delete entity={ this.props.type } entityId={ data.id } />
-            </div>
-        );
-    }
-
     render() {
         return (
             <Grid
@@ -56,7 +41,7 @@ export default class  BaseGrid extends BaseComponent {
 
                 onPageChange={ (page) => this.handlePageChange(page) }
                 sortFunction={ (field) => this.sortFunction(field) }
-                setActions={ (data) => this.setActions(data) }
+                setActions={ (this.props.setActions ? (data) => this.props.setActions(data) : null) }
             />
         );
     }

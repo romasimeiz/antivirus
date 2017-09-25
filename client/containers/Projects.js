@@ -1,7 +1,9 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Projects from '../components/Base/BaseGrid';
 import * as AppActions from '../actions/actions';
+import Actions from '../components/Projects/actions';
 
 const mapStateToProps = state => ({
     title: 'Projects',
@@ -21,6 +23,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         pushToRoute(route) {
             dispatch(push(route));
+        },
+        setActions(data) {
+            return <Actions { ...data } />
         }
     };
 };
