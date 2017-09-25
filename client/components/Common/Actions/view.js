@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 export default function View({ link, children }) {
     return (
-        <NavLink activeClassName="active" to={ link }>
-            <span className='fa fa-eye' > </span>
+        <NavLink activeClassName="active" className="btn btn-info btn-xs" to={ link }>
+            <i className='fa fa-eye' />
+            <span> View</span>
         </NavLink>
     );
 }

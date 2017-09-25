@@ -13,8 +13,9 @@ export default class Delete extends Component {
         const { title, type, entity, entityId, children } = this.props;
         return (
             <span>
-                <a onClick={() => this.refs.simpleDialog.show()} title={title}>
-                    <span className='fa fa-trash'> </span>
+                <a onClick={() => this.refs.simpleDialog.show()} title={title} className="btn btn-danger btn-xs">
+                    <i className='fa fa-trash' />
+                    <span> Delete</span>
                 </a>
                 <SkyLight hideOnOverlayClicked ref="simpleDialog" title="Project will be deleted, continue ?">
                     <div className="modal-footer">

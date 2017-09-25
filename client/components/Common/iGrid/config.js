@@ -17,7 +17,8 @@ export default {
         defaultClass: 'table',
         withoutRowNamesClass: 'table',
         sortFunctionClass: 'dataTable',
-        sortingRowNameClass: 'sorting'
+        sortingRowNameClass: 'sorting',
+        actionsClassName: 'actions'
     },
     wrapper: {
         wrapperClass: 'ibox float-e-margins grid dataTables_wrapper',

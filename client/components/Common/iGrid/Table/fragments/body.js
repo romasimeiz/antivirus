@@ -6,7 +6,7 @@ const body = function (props) {
         return (
             <tbody>
             { props.data.map((row, rowIndex) => {
-                let actions = (props.setActions ? <td>{ props.setActions(row) }</td> : null);
+                let actions = (props.setActions ? <td className={ props.actionsClassName }>{ props.setActions(row) }</td> : null);
                 return (
                     <tr key={ `tbody_row_${rowIndex}` }>
                         { props.fields.map((field, cellIndex) => {

@@ -43,6 +43,14 @@ $borderColor: #e7eaec;
         }
       }
     }
+
+    .actions {
+      text-align: right;
+
+      .btn {
+        margin: 4px;
+      }
+    }
   }
 
   .ibox-content {

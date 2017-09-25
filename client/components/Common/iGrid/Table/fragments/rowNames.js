@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const titleRow = function (props) {
-    let actions = (props.setActions ? <th>Actions</th> : null);
+    let actions = (props.setActions ? <th className={ props.actionsClassName }>Actions</th> : null);
     return (
         <tr>
             { props.fields.map((value) => {
