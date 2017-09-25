@@ -27,23 +27,7 @@ export default class Grid extends Component {
      * Reset cache
      */
     resetCache() {
-        this._data = null;
         this._fields = null;
-    }
-
-    /**
-     * Prepares the data
-     * @returns {null|Array|*}
-     */
-    getData() {
-        if (this._data === null) {
-            this._data = [];
-            if (this.props.data && this.props.data instanceof Array) {
-                this._data = this.props.data;
-            }
-        }
-
-        return this._data;
     }
 
     /**
@@ -123,7 +107,6 @@ export default class Grid extends Component {
                 <Table
                     { ...config.table }
                     { ...this.props }
-                    data={ this.getData() }
                     fields={ this.getFields() }
                     sortFunction={ (!!this.props.sortFunction ? (field) => this.sortFunction(field) : null) }
                 />

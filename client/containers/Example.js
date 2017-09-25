@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 
-import Example from '../components/Example';
+import Example from '../components/Base/BaseGrid';
 import * as AppActions from '../actions/actions';
 
 const mapStateToProps = state => ({
+    title: 'Example',
+    type: 'projects',
     fields: state.projects.projectsGrid,
-    projects: state.projects.projects,
-    pagesCount: state.projects.pagesCount,
-    actions: state.projects.actions
+    data: state.projects.projects
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProjects(page, sort) {
+        getData(page, sort) {
             dispatch(AppActions.projects.request({
                 page:page,
                 sort:sort

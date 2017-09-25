@@ -103,14 +103,18 @@ function* watchLogout() {
 function* watchUsers() {
     while (true) {
         const {request} = yield take(actions.USERS.REQUEST);
+        let query = {
+            page: request.page ? request.page : 1
+        };
+
+        if (request.sort) {
+            query.sort = request.sort;
+        }
+
         try {
-            const page = request ? request : 1;
             const users = yield call(apiFetch, '/user', {
                 method: 'GET',
-                query: {
-                    page,
-                    per_page: PER_PAGE
-                }
+                query: query
             });
             const pagesCount = Math.ceil(users.data.total / 2 );
             yield put(actions.users.success({users, pagesCount}));
