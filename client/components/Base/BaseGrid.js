@@ -35,10 +35,10 @@ export default class  BaseGrid extends BaseComponent {
         let link = `/${ this.props.type }/${ data.id }/`;
 
         return (
-            <div>
-                <Delete entity={ this.props.type } entityId={ data.id } />
+            <div className="actions">
                 <View key={ 'view_btn_' + data.id } type="view"  link={ link + 'view' } />
                 <Update key={ 'update_btn_' + data.id } type="update" link={ link + 'update' } />
+                <Delete entity={ this.props.type } entityId={ data.id } />
             </div>
         );
     }
