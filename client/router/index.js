@@ -13,6 +13,7 @@ import ProjectEdit from '../containers/ProjectEdit';
 import NotFound from '../components/NotFound';
 import { ConnectedRouter } from 'react-router-redux';
 import history from '../history';
+import Example from '../containers/Example';
 
 export default (
     <App>
@@ -27,6 +28,7 @@ export default (
                         <Route exact path='/profile' component={Profile} />
                         <Route path='/projects/:projectId/files' component={Files}/>
                         <Route path='/projects/:projectId/update' component={ProjectEdit}/>
+                        <Route path='/example' component={Example}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </Auth>

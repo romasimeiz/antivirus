@@ -103,14 +103,18 @@ function* watchLogout() {
 function* watchUsers() {
     while (true) {
         const {request} = yield take(actions.USERS.REQUEST);
+        let query = {
+            page: request.page ? request.page : 1
+        };
+
+        if (request.sort) {
+            query.sort = request.sort;
+        }
+
         try {
-            const page = request ? request : 1;
             const users = yield call(apiFetch, '/user', {
                 method: 'GET',
-                query: {
-                    page,
-                    per_page: PER_PAGE
-                }
+                query: query
             });
             const pagesCount = Math.ceil(users.data.total / 2 );
             yield put(actions.users.success({users, pagesCount}));
@@ -132,14 +136,18 @@ function* watchNotices() {
 function* watchProjects() {
     while (true) {
         const {request} = yield take(actions.PROJECTS.REQUEST);
-        const page = request ? request : 1;
+        let query = {
+            page: request.page ? request.page : 1
+        };
+
+        if (request.sort) {
+            query.sort = request.sort;
+        }
+
         try {
             const projects = yield call(apiFetch, '/project', {
                 method: 'GET',
-                query: {
-                    page    : page,
-                    per_page: PER_PAGE,
-                }
+                query: query
             });
 
             projects.data.data.map( (value) => {
