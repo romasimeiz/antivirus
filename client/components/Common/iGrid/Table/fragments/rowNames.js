@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 const titleRow = function (props) {
-    let actions = (props.setActions ? <th>Actions</th> : '');
+    let actions = (props.setActions ? <th>Actions</th> : null);
     return (
         <tr>
-            { Object.values(props.fields).map((value, cellIndex) => {
-                let key = Object.keys(props.fields)[cellIndex];
+            { props.fields.map((value) => {
+                let key = value.mapping;
                 let className = '';
 
                 if (props.isSortable(key)) {
@@ -13,7 +13,7 @@ const titleRow = function (props) {
                 }
 
                 return (
-                    <th className={ className } key={ `${props.name}_cell_${cellIndex}` } onClick={ () => props.sortFunction(key) }>{ value }</th>
+                    <th className={ className } key={ `${props.name}_cell_${key}` } onClick={ () => props.sortFunction(key) }>{ value.name }</th>
                 );
             }) }
             { actions }

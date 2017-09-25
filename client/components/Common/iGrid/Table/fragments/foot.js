@@ -9,6 +9,8 @@ const foot = function (props) {
             </tfoot>
         );
     }
+
+    return null;
 };
 
 export default foot;

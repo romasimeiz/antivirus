@@ -9,6 +9,8 @@ const head = function (props) {
             </thead>
         );
     }
+
+    return null;
 };
 
 export default head;

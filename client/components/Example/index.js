@@ -4,6 +4,13 @@ import Update from '../../components/Common/Actions/update';
 import Grid from '../Common/iGrid';
 import './style.scss';
 
+const fields = [
+    {name:'ID',mapping:'id'},
+    {name:'Name',mapping:'name'},
+    {name:'User',mapping:'user.name'},
+    {name:'Link',mapping:'link'},
+    {name:'Status',mapping:'is_active'}
+];
 
 export default class Example extends Component {
     constructor(props){
@@ -41,32 +48,47 @@ export default class Example extends Component {
 
     render() {
         return (
-            <Grid
-                data={ this.props.projects.data }
-                dataTotal={ this.props.projects.total }
-                dataPerPage={ this.props.projects.per_page }
+            <div>
+                <Grid
+                    data={ this.props.projects.data }
+                    dataTotal={ this.props.projects.total }
+                    dataPerPage={ this.props.projects.per_page }
 
-                fields={ {
-                    id: 'ID',
-                    name: 'Name',
-                    link: 'Link',
-                    is_active: 'Status'
-                } }
-                sortFields={ ['id', 'name'] }
+                    fields={ fields }
+                    sortFields={ ['id', 'name', 'user.name'] }
 
-                title="Projects"
-                tableStyle={ [Grid.tableStyle.HOVER, Grid.tableStyle.BORDERED] }
-                thead={ true }
-                tfoot={ true }
-                options={ true }
+                    title="Projects"
+                    tableStyle={ [Grid.tableStyle.HOVER, Grid.tableStyle.BORDERED] }
+                    thead={ true }
+                    tfoot={ true }
+                    options={ true }
 
-                onPageChange={ (page) => this.handlePageChange(page) }
-                sortFunction={ (field) => this.sortFunction(field) }
-                setActions={ this.setActions }
+                    onPageChange={ (page) => this.handlePageChange(page) }
+                    sortFunction={ (field) => this.sortFunction(field) }
+                    setActions={ this.setActions }
 
-                previousLabel="Previous"
-                nextLabel="Next"
-            />
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                />
+
+                <Grid
+                    data={[{one:'1', two:'2', three:'3'},{one:'4', two:'5', three:'6'}]}
+                    fields={[
+                        {name:'Third',mapping:'three'},
+                        {name:'Second',mapping:'two'},
+                        {name:'First',mapping:'one'}
+                    ]}
+                />
+
+                <Grid
+                    data={[{one:'1', two:'2', three:'3'}]}
+                    fields={['one','two']}
+                />
+
+                <Grid
+                    data={[{one:'1', two:'2', three:'3', four:'4'},{one:'5', two:'6', three:'7', four:'8'}]}
+                />
+            </div>
         );
     }
 }

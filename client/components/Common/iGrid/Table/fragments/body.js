@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 const body = function (props) {
     if (props.data) {
         return (
             <tbody>
-            { props.data.map((item, rowIndex) => {
-                let actions = (props.setActions ? <td>{ props.setActions(item) }</td> : '');
+            { props.data.map((row, rowIndex) => {
+                let actions = (props.setActions ? <td>{ props.setActions(row) }</td> : null);
                 return (
                     <tr key={ `tbody_row_${rowIndex}` }>
-                        { Object.keys(props.fields).map((key, cellIndex) => {
-                            let value = item[key];
+                        { props.fields.map((field, cellIndex) => {
+                            let value = _.get(row, field.mapping);
                             return (
                                 <td key={ `tbody_cell_${cellIndex}` }>{ value }</td>
                             );
@@ -21,6 +22,8 @@ const body = function (props) {
             </tbody>
         );
     }
+
+    return null;
 };
 
 export default body;

@@ -52,7 +52,7 @@ export default class Grid extends Component {
      */
     getFields() {
         if (this._fields === null) {
-            this._fields = {};
+            this._fields = [];
 
             let fieldsType;
             if (this.props.fields) {
@@ -61,14 +61,24 @@ export default class Grid extends Component {
 
             switch (fieldsType) {
                 case Array:
-                    this._fields = this._arrayToObject(this.props.fields);
+                    this.props.fields.map((item) => {
+                        if (item instanceof Object) {
+                            this._fields.push(this.prepareFieldItem(item.name, item.mapping));
+                        } else {
+                            this._fields.push(this.prepareFieldItem(item));
+                        }
+                    });
                     break;
                 case Object:
-                    this._fields = this.props.fields;
+                    Object.keys(this.props.fields).map((item) => {
+                        this._fields.push(this.prepareFieldItem(this.props.fields[item], item));
+                    });
                     break;
                 default:
                     if (!!this.getData()[0]) {
-                        this._fields = this._arrayToObject(Object.keys(this.getData()[0]));
+                        Object.keys(this.getData()[0]).map((item) => {
+                            this._fields.push(this.prepareFieldItem(item));
+                        });
                     }
             }
         }
@@ -77,22 +87,16 @@ export default class Grid extends Component {
     }
 
     /**
-     * Creates object from array
-     * {
-     *  arrayValue: ArrayValue
-     * }
-     * @param data
-     * @returns {{}}
-     * @private
+     * Prepares items of fields
+     * @param name
+     * @param mapping
+     * @returns {{name: string, mapping: *}}
      */
-    _arrayToObject(data) {
-        let result = {};
-
-        if (data.length) {
-            data.map(item => result[item] = item.charAt(0).toUpperCase() + item.slice(1));
-        }
-
-        return result;
+    prepareFieldItem(name, mapping = null) {
+        return {
+            name: (name.charAt(0).toUpperCase() + name.slice(1)),
+            mapping: (mapping ? mapping : name)
+        };
     }
 
     /**
@@ -124,7 +128,7 @@ export default class Grid extends Component {
                     { ...this.props }
                     data={ this.getData() }
                     fields={ this.getFields() }
-                    sortFunction={ (field) => this.sortFunction(field) }
+                    sortFunction={ (!!this.props.sortFunction ? (field) => this.sortFunction(field) : null) }
                 />
                 <Paginate
                     { ...config.pagination }
