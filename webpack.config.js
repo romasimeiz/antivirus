@@ -12,7 +12,7 @@ require('dotenv').config({path: isProduction ? '.env.production' : '.env'});
 module.exports = function () {
     const plugins = [
         new CleanWebpackPlugin(PUBLIC_PATH + '/*'),
-        new ExtractTextPlugin('/assets/css/style.css'),
+        new ExtractTextPlugin('assets/css/style.css'),
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV)
