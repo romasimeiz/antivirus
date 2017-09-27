@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import Projects from '../components/Base/BaseGrid';
+import Projects from '../components/Projects';
 import * as AppActions from '../actions/actions';
-import Actions from '../components/Projects/actions';
 
 const mapStateToProps = state => ({
     title: 'Projects',
     type: 'projects',
     fields: state.projects.projectsGrid,
     sortFields: ['id'],
-    data: state.projects.projects
+    data: state.projects.projects,
+    isFetching: state.projects.isFetching
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -24,8 +23,11 @@ const mapDispatchToProps = (dispatch) => {
         pushToRoute(route) {
             dispatch(push(route));
         },
-        setActions(data) {
-            return <Actions { ...data } />
+        dialogShow(title, confirm) {
+            dispatch(AppActions.dialog.show({title: title, confirm: confirm}));
+        },
+        deleteProject(id) {
+            dispatch(AppActions.projectsDelete.request(id))
         }
     };
 };

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const titleRow = function (props) {
     let actions = (props.setActions ? <th className={ props.actionsClassName }>Actions</th> : null);

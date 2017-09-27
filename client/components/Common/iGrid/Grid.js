@@ -6,7 +6,7 @@ import Table from './Table';
 import Paginate from './fragments/paginate';
 import './style.scss';
 
-export default class Grid extends Component {
+export default class extends Component {
     static tableStyle = constants.tableStyle;
 
     constructor(props) {

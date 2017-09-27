@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export default {
     pagination: {
@@ -32,5 +32,6 @@ export default {
         optionsCollapseLinkClass: 'collapse-link',
         optionsCloseLinkClass: 'close-link',
         optionsCloseBtnClass: 'fa fa-times',
+        spinnerClass: 'spinner'
     }
 }

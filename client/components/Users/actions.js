@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import Update from '../Common/Actions/update';
-import View from '../Common/Actions/view';
-import Delete from '../../containers/Delete';
+import React from 'react';
+import { Edit, View } from '../Common/Button';
 
 const actions = function (data) {
     let link = `/users/${ data.id }/`;
 
     return (
-        <div className="actions">
-            <View key={ 'view_btn_' + data.id } type="view"  link={ link + 'view' } />
-            <Update key={ 'update_btn_' + data.id } type="update" link={ link + 'update' } />
+        <div className="btn-group btn-group-xs">
+            <View link={ link + 'view' } />
+            <Edit link={ link + 'update' } />
         </div>
     );
 };

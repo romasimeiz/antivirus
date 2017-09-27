@@ -1,8 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './header';
 
 const wrapper = function (props) {
     let className = props.wrapperClass;
+    let contentClassName = props.contentClass + (props.showContent ? '' : ' ' + props.hideClass);
+    let spinner = null;
+
+    if (props.dataLoading === true) {
+        if (props.spinner) {
+            spinner = props.spinner;
+        } else {
+            spinner = <span className={ props.spinnerClass } />;
+        }
+    }
 
     if (!props.title) {
         className += ' ' + props.withoutTitleClass;
@@ -11,7 +21,8 @@ const wrapper = function (props) {
     return (
         <div className={ className }>
             <Header { ...props } />
-            <div className={ props.contentClass + (props.showContent ? '' : ' ' + props.hideClass) } >
+            <div className={ contentClassName } >
+                { spinner }
                 { props.children }
             </div>
         </div>
