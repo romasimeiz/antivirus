@@ -19,17 +19,13 @@ const initialState = {
             childrens: [
                 {
                     name: 'test1',
-                    className: 'fa fa-tasks',
+                    className: 'fa fa-tasks'
                 },
                 {
                     name: 'test2',
-                    className: 'fa fa-tasks',
-                },
+                    className: 'fa fa-tasks'
+                }
             ]
-        },
-        {
-            name: 'Example',
-            className: 'fa fa-file-text-o'
         }
     ],
     clientsGrid: [

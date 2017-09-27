@@ -5,6 +5,7 @@ import Content from '../Common/Content';
 import Footer from '../Common/Footer';
 import PageHeading from '../Common/PageHeading';
 import AppNotification from '../AppNotification';
+import Dialog from '../../containers/Dialog';
 
 
 import './style.scss';
@@ -73,6 +74,7 @@ export default class Auth extends Component {
                     <Content>{ this.props.children }</Content>
                     <Footer />
                 </div>
+                <Dialog />
             </div>
         );
     }

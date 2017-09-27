@@ -7,6 +7,7 @@ import projects from './projects';
 import projectEdit from './project-edit';
 import notification from './notification';
 import profileUpdate from './profile';
+import dialog from './dialog';
 import { routerReducer } from 'react-router-redux';
 /**
  * Combine reducers
@@ -21,5 +22,6 @@ export default combineReducers({
     projectEdit,
     notification,
     profileUpdate,
+    dialog,
     router: routerReducer,
 });

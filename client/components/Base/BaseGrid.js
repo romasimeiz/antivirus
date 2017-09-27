@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import BaseComponent from './BaseComponent'
+import React from 'react';
+import BaseComponent from './BaseComponent';
 import Grid from '../Common/iGrid';
+import { SpinnerWave } from '../Common/Spinner';
 
-export default class  BaseGrid extends BaseComponent {
+export default class extends BaseComponent {
     constructor(props){
         super(props);
 
@@ -36,12 +37,15 @@ export default class  BaseGrid extends BaseComponent {
                 data={ this.props.data.data }
                 dataTotal={ this.props.data.total }
                 dataPerPage={ this.props.data.per_page }
+                dataLoading={ this.props.isFetching }
+
+                spinner={ <SpinnerWave /> }
 
                 tableStyle={ Grid.tableStyle.HOVER }
 
                 onPageChange={ (page) => this.handlePageChange(page) }
                 sortFunction={ (field) => this.sortFunction(field) }
-                setActions={ (this.props.setActions ? (data) => this.props.setActions(data) : null) }
+                setActions={ (this.setActions ? (data) => this.setActions(data) : null) }
             />
         );
     }

@@ -19,6 +19,8 @@ export const PROJECT_DELETE      = createRequestTypes('PROJECT_DELETE');
 export const PROJECT_EDIT_SUBMIT = createRequestTypes('PROJECT_EDIT_SUBMIT');
 export const NOTIFICATION_SHOW   = 'NOTIFICATION_SHOW';
 export const NOTIFICATION_HIDE   = 'NOTIFICATION_HIDE';
+export const DIALOG_SHOW = 'DIALOG_SHOW';
+export const DIALOG_HIDE = 'DIALOG_HIDE';
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -122,4 +124,9 @@ export const uploadProfilePhoto = {
 export const notification = {
     show: response => ({type: NOTIFICATION_SHOW, response}),
     hide: response => ({type: NOTIFICATION_HIDE, response}),
+};
+
+export const dialog = {
+    show: response => ({type: DIALOG_SHOW, response}),
+    hide: response => ({type: DIALOG_HIDE, response}),
 };
