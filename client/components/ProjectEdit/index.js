@@ -5,21 +5,21 @@ import fieldDecorator from '../Common/field-decorator';
 import './project-form.scss';
 
 export default class ProjectEdit extends Component {
-    shouldComponentUpdate(nextProps) {
-        return nextProps.match.params.projectId ? true : false;
+    componentDidMount() {
+        this.props.match.params.projectId ? this.props.getProject(this.props.match.params.projectId) : false;
+        this.props.getUsers({per_page: 999999});
     }
 
-    componentDidMount() {
+    componentWillMount() {
         //this.props.match.params.projectId ? this.props.getProject(this.props.match.params.projectId) : false;
-        this.props.getProject(this.props.match.params.projectId);
-        this.props.getUsers({per_page: 999999});
+        //this.props.getProject(this.props.match.params.projectId);
     }
 
     render() {
         const {isFetching, handleSubmit, users, initialValues, error } = this.props;
         const onSubmit = this.props.match.params.projectId ? this.props.onSubmitUpdate : this.props.onSubmitCreate;
         const usersArray = users.data ? users.data : null;
-
+        cl(onSubmit);
         return (
             <div className="row">
                 <div className="loginscreen animated fadeInDown col-md-offse col-lg-offset-4 col-md-4">
