@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Wrapper from './fragments/wrapper';
+import BoxWrapper from './fragments/box-wrapper';
+import config from './config';
 
 export default class extends Component {
     constructor(props) {
@@ -35,7 +36,8 @@ export default class extends Component {
         }
 
         return (
-            <Wrapper
+            <BoxWrapper
+                { ...config.wrapper }
                 { ...this.props }
                 showContent={ this.state.showContent }
                 toggleSelf={ () => this.toggleSelf() }
