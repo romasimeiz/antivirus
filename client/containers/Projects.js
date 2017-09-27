@@ -14,10 +14,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getData(page, sort) {
+        getData(data) {
             dispatch(AppActions.projects.request({
-                page:page,
-                sort:sort
+                page: data.page,
+                sort: data.sort
             }));
         },
         pushToRoute(route) {

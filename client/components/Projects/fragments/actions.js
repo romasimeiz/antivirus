@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, View, Delete } from '../Common/Button';
+import { Edit, View, Delete } from '../../Common/Button';
 
 const actions = function (props) {
     let link = `/projects/${ props.id }/`;

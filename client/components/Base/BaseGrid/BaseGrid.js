@@ -1,15 +1,17 @@
 import React from 'react';
-import BaseComponent from './BaseComponent';
-import Grid from '../Common/iGrid';
-import BoxWrapper from '../Common/BoxWrapper';
-import { SpinnerWave } from '../Common/Spinner';
+import BaseComponent from './../BaseComponent';
+import Grid from '../../Common/iGrid';
+import BoxWrapper from '../../Common/BoxWrapper';
+import { SpinnerWave } from '../../Common/Spinner';
 
 export default class extends BaseComponent {
     constructor(props){
         super(props);
 
-        this._page = 1;
-        this._sort = null;
+        this._data = {
+            page: 1,
+            sort: null
+        };
     }
 
     componentDidMount() {
@@ -17,22 +19,25 @@ export default class extends BaseComponent {
     }
 
     sortFunction(field) {
-        this._sort = field;
+        this._data.sort = field;
         this.getData();
     }
 
     handlePageChange(page) {
-        this._page = page;
+        this._data.page = page;
         this.getData();
     }
 
     getData() {
-        this.props.getData(this._page, this._sort);
+        this.props.getData(this._data);
     }
 
     render() {
         return (
-            <BoxWrapper { ...this.props }>
+            <BoxWrapper
+                { ...this.props }
+                titleContent={ (this.titleContent ? this.titleContent() : null) }
+            >
                 <SpinnerWave show={ this.props.isFetching } />
                 <Grid
                     { ...this.props }

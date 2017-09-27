@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Users from '../components/Users';
 import * as AppActions from '../actions/actions';
-import Actions from '../components/Users/actions';
 
 const mapStateToProps = state => ({
     title: 'Users',
@@ -13,10 +12,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getData(page, sort) {
+        getData(data) {
             dispatch(AppActions.users.request({
-                page:page,
-                sort:sort
+                page: data.page,
+                sort: data.sort
             }));
         }
     };

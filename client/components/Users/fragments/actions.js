@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, View } from '../Common/Button';
+import { Edit, View } from '../../Common/Button';
 
 const actions = function (data) {
     let link = `/users/${ data.id }/`;

@@ -1,9 +1,10 @@
 import React from 'react';
 import BaseGrid from '../Base/BaseGrid';
-import Actions from './actions';
+import Actions from './fragments/actions';
+import Title from './fragments/title';
 
 export default class extends BaseGrid {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -13,6 +14,10 @@ export default class extends BaseGrid {
 
     setActions(data) {
         return <Actions { ...data } deleteClickHandler={ () => this.deleteClickHandler(data) } />
+    }
+
+    titleContent() {
+        return <Title { ...this.props } />;
     }
 
     render() {

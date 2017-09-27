@@ -16,5 +16,10 @@ export default {
         name: 'Delete',
         className: 'btn-danger',
         iconClass: 'fa fa-trash'
+    },
+    create: {
+        name: 'Create',
+        className: 'btn-primary',
+        iconClass: 'fa fa-plus-circle'
     }
 }
