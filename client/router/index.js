@@ -24,6 +24,7 @@ export default (
                         <Route path='/home' component={Home}/>
                         <Route path='/users' component={Users}/>
                         <Route exact path='/projects' component={Projects} />
+                        <Route exact path='/projects/create' component={ProjectEdit} />
                         <Route exact path='/profile' component={Profile} />
                         <Route path='/projects/:projectId/files' component={Files}/>
                         <Route path='/projects/:projectId/update' component={ProjectEdit}/>

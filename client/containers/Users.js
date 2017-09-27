@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getUsers(page) {
             page = page ? page : 1;
-            dispatch(AppActions.users.request(page));
+            dispatch(AppActions.users.request({page}));
         }
     };
 };

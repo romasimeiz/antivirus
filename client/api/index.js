@@ -54,7 +54,12 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
+
+
     let newOptions = Object.assign({}, globalOptions, options);
+    if (newOptions.headers['Content-Type'] === 'auto') {
+        delete newOptions.headers['Content-Type'];
+    }
     let newUrl = API_URL + url;
     let searchParams = null;
     if(options.query) {

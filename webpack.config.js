@@ -18,12 +18,14 @@ module.exports = function () {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV)
             },
             API_URL: JSON.stringify(process.env.API_URL),
-            PER_PAGE: JSON.stringify(process.env.PER_PAGE)
+            API_HOST: JSON.stringify(process.env.API_HOST),
+            PER_PAGE: JSON.stringify(process.env.PER_PAGE),
+            cl: (value) => {console.log('its my dumper', value); }
         }),
         new CopyWebpackPlugin([
             {
                 from: SOURCE_PATH + '/assets/img/*',
-                to: PUBLIC_PATH
+                to:   PUBLIC_PATH
             }
         ])
     ];

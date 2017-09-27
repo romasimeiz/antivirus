@@ -16,7 +16,10 @@ export default class Projects extends Component {
     render() {
         return (
             <div>
-                <NavLink to={'/projects/create'} />
+                <NavLink to={'/projects/create'} className="btn btn-primary m-b-md">
+                    <i className="fa fa-plus m-r-xs"> </i>
+                     Create Project
+                </NavLink>
                 <Grid
                     fields={this.props.fields}
                     data={this.props.projects}

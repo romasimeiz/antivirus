@@ -6,6 +6,7 @@ import files from './files';
 import projects from './projects';
 import projectEdit from './project-edit';
 import notification from './notification';
+import profileUpdate from './profile';
 import { routerReducer } from 'react-router-redux';
 /**
  * Combine reducers
@@ -19,5 +20,6 @@ export default combineReducers({
     files,
     projectEdit,
     notification,
+    profileUpdate,
     router: routerReducer,
 });

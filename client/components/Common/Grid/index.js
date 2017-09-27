@@ -50,8 +50,6 @@ export default class Grid extends Component {
         this.props.pageClick(page);
     };
 
-
-
     render() {
         const {fields, data, children, actions, pushToRoute, pagesCount, pageClick} = this.props;
         return (

@@ -12,6 +12,9 @@ export const USERS               = createRequestTypes('USERS');
 export const PROJECTS            = createRequestTypes('PROJECTS');
 export const FILES               = createRequestTypes('FILES');
 export const PROJECT_EDIT        = createRequestTypes('PROJECT_EDIT');
+export const UPLOAD_PROFILE_PHOTO = createRequestTypes('UPLOAD_PROFILE_PHOTO');
+export const PROJECT_CREATE      = createRequestTypes('PROJECT_CREATE');
+export const PROFILE_UPDATE      = createRequestTypes('PROFILE_UPDATE');
 export const PROJECT_DELETE      = createRequestTypes('PROJECT_DELETE');
 export const PROJECT_EDIT_SUBMIT = createRequestTypes('PROJECT_EDIT_SUBMIT');
 export const NOTIFICATION_SHOW   = 'NOTIFICATION_SHOW';
@@ -71,6 +74,15 @@ export const projectEdit = {
     error: error => ({type: PROJECT_EDIT.FAILURE, error})
 };
 
+export const projectCreate = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: PROJECT_CREATE.REQUEST, request}),
+    // Send the response
+    success: response => ({type: PROJECT_CREATE.SUCCESS, response }),
+    // Send the error
+    error: error => ({type: PROJECT_CREATE.FAILURE, error})
+};
+
 export const projectsDelete = {
     // Notify the intent to fetch recipes
     request: request => ({type: PROJECT_DELETE.REQUEST, request}),
@@ -80,6 +92,15 @@ export const projectsDelete = {
     error: error => ({type: PROJECT_DELETE.FAILURE, error})
 };
 
+export const profileUpdate = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: PROFILE_UPDATE.REQUEST, request}),
+    // Send the response
+    success: response => ({type: PROFILE_UPDATE.SUCCESS, response }),
+    // Send the error
+    error: error => ({type: PROFILE_UPDATE.FAILURE, error})
+};
+
 export const projectEditSubmit = {
     // Notify the intent to fetch recipes
     request: request => ({type: PROJECT_EDIT_SUBMIT.REQUEST, request}),
@@ -87,6 +108,15 @@ export const projectEditSubmit = {
     success: response => ({type: PROJECT_EDIT_SUBMIT.SUCCESS, response }),
     // Send the error
     error: error => ({type: PROJECT_EDIT_SUBMIT.FAILURE, error})
+};
+
+export const uploadProfilePhoto = {
+    // Notify the intent to fetch recipes
+    request: request => ({type: UPLOAD_PROFILE_PHOTO.REQUEST, request}),
+    // Send the response
+    success: response => ({type: UPLOAD_PROFILE_PHOTO.SUCCESS, response }),
+    // Send the error
+    error: error => ({type: UPLOAD_PROFILE_PHOTO.FAILURE, error})
 };
 
 export const notification = {
