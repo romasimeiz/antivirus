@@ -6,6 +6,7 @@ import { reduxForm } from 'redux-form';
 
 const ProjectEditContainer = reduxForm({
     form: 'project-edit',
+    enableReinitialize: true,
 })(ProjectEdit);
 
 const mapStateToProps = (state) => {
@@ -22,15 +23,16 @@ const mapDispatchToProps = (dispatch) => {
         onSubmitUpdate: (values) => {
             dispatch(AppActions.projectEditSubmit.request(values));
         },
+
         onSubmitCreate: (values) => {
             dispatch(AppActions.projectCreate.request(values));
         },
 
-        getProject(projectId) {
+        getProject: (projectId) => {
             dispatch(AppActions.projectEdit.request(projectId))
         },
 
-        getUsers(perPage) {
+        getUsers: (perPage) => {
             dispatch(AppActions.users.request(perPage))
         }
     };

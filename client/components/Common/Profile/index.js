@@ -7,17 +7,29 @@ import Dropzone from 'react-dropzone'
 import './profile.scss';
 
 export default class Profile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            photo : {},
+        }
+    }
+
     onDropFileHandler(file, userId) {
-        cl(file);
-        const formData = new FormData();
-        formData.append('photo', file);
-        cl(formData);
-        this.props.onDrop({file: formData, userId, name: file.name});
+        this.setState({
+            photo: file
+        });
+
+        //const formData = new FormData();
+        //formData.append('photo', file);
+        //cl(formData);
+        //this.props.onDrop({file: formData, userId, name: file.name});
+
     }
 
     render() {
         const {handleSubmit, initialValues, error, onSubmit } = this.props;
         const userId = initialValues ? initialValues.id : 0;
+        const photoUrl = this.state.photo.preview ? this.state.photo.preview : (initialValues ? `${API_HOST}${initialValues.photo}` : '');
         return (
             <div className="row">
                 <div className="col-md-4">
@@ -27,7 +39,7 @@ export default class Profile extends Component {
                         </div>
                         <div>
                             <div className="ibox-content no-padding border-left-right">
-                                <img alt="image" className="img-responsive" src={`${API_HOST}${initialValues.photo}`} />
+                                <img alt="image" className="img-responsive" src={photoUrl} />
                             </div>
                             <div className="ibox-content profile-content">
                                 <form onSubmit={handleSubmit(onSubmit)} className="m-t">
@@ -40,12 +52,14 @@ export default class Profile extends Component {
                                     <Field name="phone" className="form-control" component={fieldDecorator} type="text"
                                            placeholder="Phone" label="Phone" />
 
+                                    <Field name="photo_file" className="form-control" component="hidden" type="hidden" value={this.state.photo}/>
+
                                     <Dropzone
                                         //ref="dropzone"
                                         onDrop={ (file) => this.onDropFileHandler(file[0], userId) }
                                         multiple={false}
                                         accept='image/*'
-                                        disablePreview={true}
+                                        // disablePreview={true}
                                         >
                                         <div>Click here select files to upload.</div>
                                     </Dropzone>

@@ -7,7 +7,7 @@ const actions = function (props) {
     return (
         <div className="btn-group btn-group-xs">
             <View link={ props.link } />
-            <Edit link={ link + 'update' } />
+            <Edit link={ `${link}update` } />
             <Delete onClick={ props.deleteClickHandler } />
         </div>
     );
