@@ -1,0 +1,30 @@
+$borderColor: #e7eaec;
+
+.box-wrapper {
+  &.without-title {
+    &::before {
+      content: '';
+      width: 100%;
+      border-color: $borderColor;
+      border-image: none;
+      border-style: solid solid none;
+      border-width: 3px 0 0;
+    }
+
+    .ibox-content {
+      border: none;
+    }
+  }
+
+  .ibox-content {
+    position: relative;
+
+    &.hide {
+      display: block !important;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      height: 0;
+    }
+  }
+}

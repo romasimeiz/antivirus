@@ -1,6 +1,6 @@
 export default {
     button: {
-        defaultClass: 'btn'
+        defaultClass: 'btn btn-custom'
     },
     edit: {
         name: 'Edit',

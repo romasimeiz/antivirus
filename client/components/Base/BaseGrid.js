@@ -1,6 +1,7 @@
 import React from 'react';
 import BaseComponent from './BaseComponent';
 import Grid from '../Common/iGrid';
+import BoxWrapper from '../Common/BoxWrapper';
 import { SpinnerWave } from '../Common/Spinner';
 
 export default class extends BaseComponent {
@@ -31,22 +32,22 @@ export default class extends BaseComponent {
 
     render() {
         return (
-            <Grid
-                { ...this.props }
+            <BoxWrapper { ...this.props }>
+                <SpinnerWave show={ this.props.isFetching } />
+                <Grid
+                    { ...this.props }
 
-                data={ this.props.data.data }
-                dataTotal={ this.props.data.total }
-                dataPerPage={ this.props.data.per_page }
-                dataLoading={ this.props.isFetching }
+                    data={ this.props.data.data }
+                    dataTotal={ this.props.data.total }
+                    dataPerPage={ this.props.data.per_page }
 
-                spinner={ <SpinnerWave /> }
+                    tableStyle={ Grid.tableStyle.HOVER }
 
-                tableStyle={ Grid.tableStyle.HOVER }
-
-                onPageChange={ (page) => this.handlePageChange(page) }
-                sortFunction={ (field) => this.sortFunction(field) }
-                setActions={ (this.setActions ? (data) => this.setActions(data) : null) }
-            />
+                    onPageChange={ (page) => this.handlePageChange(page) }
+                    sortFunction={ (field) => this.sortFunction(field) }
+                    setActions={ (this.setActions ? (data) => this.setActions(data) : null) }
+                />
+            </BoxWrapper>
         );
     }
 }

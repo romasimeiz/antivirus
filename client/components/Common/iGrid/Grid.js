@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import constants from './constants';
 import config from './config';
-import Wrapper from './Wrapper';
 import Table from './Table';
 import Paginate from './fragments/paginate';
 import './style.scss';
@@ -103,7 +102,7 @@ export default class extends Component {
 
     render() {
         return (
-            <Wrapper { ...config.wrapper } { ...this.props } >
+            <div { ...config.wrapper }>
                 <Table
                     { ...config.table }
                     { ...this.props }
@@ -117,7 +116,7 @@ export default class extends Component {
                     dataPerPage={ this.props.dataPerPage }
                     onPageChange={ (data) => this.handlePageChange(data) }
                 />
-            </Wrapper>
+            </div>
         );
     }
 }
