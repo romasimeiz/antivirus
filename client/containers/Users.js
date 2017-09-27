@@ -1,19 +1,26 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import Users from '../components/Users';
+import Users from '../components/Base/BaseGrid';
 import * as AppActions from '../actions/actions';
+import Actions from '../components/Users/actions';
 
 const mapStateToProps = state => ({
+    title: 'Users',
+    type: 'users',
     fields : state.users.usersGrid,
-    users : state.users.users,
-    pagesCount: state.users.pagesCount
+    data : state.users.users
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUsers(page) {
-            page = page ? page : 1;
-            dispatch(AppActions.users.request({page}));
+        getData(page, sort) {
+            dispatch(AppActions.users.request({
+                page:page,
+                sort:sort
+            }));
+        },
+        setActions(data) {
+            return <Actions { ...data } />
         }
     };
 };

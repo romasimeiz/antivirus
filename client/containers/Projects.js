@@ -1,23 +1,31 @@
-import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
-import Projects from '../components/Projects';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import Projects from '../components/Base/BaseGrid';
 import * as AppActions from '../actions/actions';
+import Actions from '../components/Projects/actions';
 
 const mapStateToProps = state => ({
+    title: 'Projects',
+    type: 'projects',
     fields: state.projects.projectsGrid,
-    projects: state.projects.projects,
-    pagesCount: state.projects.pagesCount,
-    actions: state.projects.actions
+    sortFields: ['id'],
+    data: state.projects.projects
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getProjects(page) {
-            const toPage = page ? page : 1;
-            dispatch(AppActions.projects.request(toPage));
+        getData(page, sort) {
+            dispatch(AppActions.projects.request({
+                page:page,
+                sort:sort
+            }));
         },
         pushToRoute(route) {
             dispatch(push(route));
+        },
+        setActions(data) {
+            return <Actions { ...data } />
         }
     };
 };

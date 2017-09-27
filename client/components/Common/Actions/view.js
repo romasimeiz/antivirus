@@ -1,14 +1,11 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-
-export default function View({ title, link, children }) {
+export default function View({ link, children }) {
     return (
-
-        <span>
-            <a onClick={link} title={title}>
-                <span className='fa fa-eye' > </span>
-            </a>
-        </span>
-
+        <NavLink activeClassName="active" className="btn btn-info btn-xs" to={ link }>
+            <i className='fa fa-eye' />
+            <span> View</span>
+        </NavLink>
     );
 }

@@ -5,7 +5,6 @@ import apiFetch from '../api';
 import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
 import projectMessages from '../messages/project-messages';
-import userMessages from '../messages/user-messages';
 
 function* watchLogin() {
     while (true) {
@@ -13,7 +12,7 @@ function* watchLogin() {
         try {
             const user = yield call(apiFetch, '/login', {
                 method: 'POST',
-                body: JSON.stringify(request),
+                body: JSON.stringify(request)
             });
             yield put(actions.login.success(user));
             yield put(push('/home'));
@@ -59,12 +58,14 @@ function* watchProjectEditSubmit() {
         const formId = 'project-edit';
         const {request} = yield take(actions.PROJECT_EDIT_SUBMIT.REQUEST);
         const projectId = request.id;
+
         request.is_active = request.is_active === '' ? false : request.is_active;
         startSubmit(formId);
+
         try {
             const project = yield call(apiFetch, `/project/${projectId}`, {
                 method: 'PUT',
-                body: JSON.stringify(request),
+                body: JSON.stringify(request)
             });
 
             yield put(reset());
@@ -80,65 +81,6 @@ function* watchProjectEditSubmit() {
             yield put(stopSubmit(formId, allErrors));
             yield put(actions.projectEditSubmit.error(err));
             yield put(actions.notification.show({message : projectMessages.UPDATED_ERROR, title : 'Error!'}));
-        }
-    }
-}
-
-function* watchProjectCreate() {
-    while (true) {
-        const formId = 'project-edit';
-        const {request} = yield take(actions.PROJECT_CREATE.REQUEST);
-
-        request.is_active = request.is_active === '' ? false : request.is_active;
-        startSubmit(formId);
-
-        try {
-            const project = yield call(apiFetch, `/project`, {
-                method: 'POST',
-                body: JSON.stringify(request),
-            });
-
-            yield put(reset());
-            yield put(stopSubmit(formId));
-            yield put(actions.notification.show({message : projectMessages.CREATED_SUCCESS, title : 'Success!'}));
-            yield put(push('/projects'));
-        } catch (err) {
-            let allErrors = {};
-            for (let key in err.errors) {
-                if (!err.errors.hasOwnProperty(key)) { continue }
-                allErrors[key] = err.errors[key].join(' ');
-            }
-            yield put(stopSubmit(formId, allErrors));
-            yield put(actions.projectCreate.error(err));
-            yield put(actions.notification.show({message : projectMessages.CREATED_ERROR, title : 'Error!'}));
-        }
-    }
-}
-
-function* watchProfileUpdate() {
-    while (true) {
-        const formId = 'profile-update';
-        const {request} = yield take(actions.PROFILE_UPDATE.REQUEST);
-        startSubmit(formId);
-        try {
-            const user = yield call(apiFetch, `/user/${request.id}`, {
-                method: 'PUT',
-                body: JSON.stringify(request),
-            });
-            yield put(reset());
-            yield put(stopSubmit(formId));
-            yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, title : 'Success!'}));
-            yield put(actions.profileUpdate.success({user: user.data}));
-            yield put(push('/home'));
-        } catch (err) {
-            let allErrors = {};
-            for (let key in err.errors) {
-                if (!err.errors.hasOwnProperty(key)) { continue }
-                allErrors[key] = err.errors[key].join(' ');
-            }
-            yield put(stopSubmit(formId, allErrors));
-            yield put(actions.profileUpdate.error(err));
-            yield put(actions.notification.show({message : userMessages.CREATED_ERROR, title : 'Error!'}));
         }
     }
 }
@@ -161,15 +103,18 @@ function* watchLogout() {
 function* watchUsers() {
     while (true) {
         const {request} = yield take(actions.USERS.REQUEST);
+        let query = {
+            page: request.page ? request.page : 1
+        };
+
+        if (request.sort) {
+            query.sort = request.sort;
+        }
+
         try {
-            const page = request.page ? request.page : 1;
-            const per_page = request.per_page ? request.per_page : PER_PAGE;
             const users = yield call(apiFetch, '/user', {
                 method: 'GET',
-                query: {
-                    page,
-                    per_page
-                }
+                query: query
             });
             const pagesCount = Math.ceil(users.data.total / 2 );
             yield put(actions.users.success({users, pagesCount}));
@@ -191,14 +136,18 @@ function* watchNotices() {
 function* watchProjects() {
     while (true) {
         const {request} = yield take(actions.PROJECTS.REQUEST);
-        const page = request ? request : 1;
+        let query = {
+            page: request.page ? request.page : 1
+        };
+
+        if (request.sort) {
+            query.sort = request.sort;
+        }
+
         try {
             const projects = yield call(apiFetch, '/project', {
                 method: 'GET',
-                query: {
-                    page    : page,
-                    per_page: PER_PAGE,
-                }
+                query: query
             });
 
             projects.data.data.map( (value) => {
@@ -233,25 +182,6 @@ function* watchFiles() {
     }
 }
 
-function* watchUploadProfilePhoto() {
-    while (true) {
-        const {request} = yield take(actions.UPLOAD_PROFILE_PHOTO.REQUEST);
-        try {
-            const file = yield call(apiFetch, `/user/${request.userId}/uploadfile`, {
-                method: 'POST',
-                body: request.file,
-                headers: {
-                    'Content-Type': 'auto'
-                }
-            });
-            
-            yield put(actions.uploadProfilePhoto.success('file'));
-        } catch (e) {
-            yield put(actions.uploadProfilePhoto.error(e));
-        }
-    }
-}
-
 export default function* rootSaga() {
     yield [
         fork(watchLogin),
@@ -261,10 +191,7 @@ export default function* rootSaga() {
         fork(watchFiles),
         fork(watchProjectEdit),
         fork(watchProjectEditSubmit),
-        fork(watchProjectCreate),
         fork(watchProjectDelete),
-        fork(watchProfileUpdate),
-        fork(watchUploadProfilePhoto),
         fork(watchNotices),
     ]
 }
