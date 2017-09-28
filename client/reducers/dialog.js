@@ -2,7 +2,7 @@ import * as actions from "../actions/actions";
 
 const initialState = {
     isActive: false,
-    title: '',
+    content: null,
     confirm: null
 };
 

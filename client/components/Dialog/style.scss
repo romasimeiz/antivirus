@@ -1,0 +1,20 @@
+.modal {
+  display: block;
+
+  .modal-dialog {
+    .modal-header {
+      padding: 15px;
+
+      h3 {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.confirm {
+  .modal-content {
+    font-size: 24px;
+  }
+}

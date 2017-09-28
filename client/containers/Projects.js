@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch) => {
         getData(data = {}) {
             dispatch(AppActions.projects.request(data));
         },
-        dialogShow(title, confirm) {
-            dispatch(AppActions.dialog.show({title: title, confirm: confirm}));
+        dialogShow(content, confirm) {
+            dispatch(AppActions.dialog.show({content: content, confirm: confirm}));
         },
         deleteProject(id) {
             dispatch(AppActions.projectsDelete.request(id));

@@ -145,7 +145,7 @@ function* watchUsers() {
             });
             const pagesCount = Math.ceil(users.data.total / 2 );
             yield put(actions.users.success({users, pagesCount}));
-            yield put(push({pathname:'/users',search:queryString.stringify(query)}));
+            yield put(push({pathname:location.pathname,search:queryString.stringify(query)}));
         } catch (e) {
             yield put(actions.users.error(e))
         }
@@ -214,7 +214,7 @@ function* watchProjects() {
             });
             const pagesCount = Math.ceil(projects.data.total / 2 );
             yield put(actions.projects.success({projects, pagesCount}));
-            yield put(push({pathname:'/projects',search:queryString.stringify(query)}));
+            yield put(push({pathname:location.pathname,search:queryString.stringify(query)}));
         } catch (e) {
             yield put(actions.projects.error(e))
         }

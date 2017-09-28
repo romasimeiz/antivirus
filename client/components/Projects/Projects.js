@@ -5,6 +5,7 @@ import BoxWrapper from '../Common/BoxWrapper';
 import { SpinnerWave } from '../Common/Spinner';
 import Actions from './fragments/actions';
 import Title from './fragments/title';
+import ConfirmMessage from './fragments/confirmMessage';
 
 export default class extends BaseComponent {
     constructor(props) {
@@ -16,7 +17,7 @@ export default class extends BaseComponent {
     }
 
     deleteClickHandler(data) {
-        this.props.dialogShow('You try to delete project ' + data.name + '. Are you sure?', () => this.props.deleteProject(data.id));
+        this.props.dialogShow(<ConfirmMessage projectName={ data.name }/>, () => this.props.deleteProject(data.id));
     }
 
     render() {
