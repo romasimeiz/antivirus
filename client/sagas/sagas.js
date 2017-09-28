@@ -87,8 +87,8 @@ function* watchProjectCreate() {
 
 function* watchProjectEditSubmit() {
     while (true) {
-        const formId = 'project-edit';
         const {request} = yield take(actions.PROJECT_EDIT_SUBMIT.REQUEST);
+        const formId = 'project-edit';
         const projectId = request.id;
 
         request.is_active = request.is_active === '' ? false : request.is_active;
