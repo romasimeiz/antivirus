@@ -6,17 +6,17 @@ const mapStateToProps = state => ({
     title: 'Users',
     type: 'users',
     fields : state.users.usersGrid,
-    data : state.users.users,
+    sortFields: ['id', 'name', 'email'],
+    data: state.users.users.data,
+    dataTotal: state.users.users.total,
+    dataPerPage: state.users.users.per_page,
     isFetching: state.users.isFetching
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getData(data) {
-            dispatch(AppActions.users.request({
-                page: data.page,
-                sort: data.sort
-            }));
+        getData(data = {}) {
+            dispatch(AppActions.users.request(data));
         }
     };
 };

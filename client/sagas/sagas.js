@@ -6,6 +6,7 @@ import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
 import projectMessages from '../messages/project-messages';
 import userMessages from '../messages/user-messages';
+import queryString from 'query-string';
 
 function* watchLogin() {
     while (true) {
@@ -32,7 +33,7 @@ function* watchProjectDelete() {
             });
             yield put(actions.projectsDelete.success(project));
             yield put(actions.notification.show({message : projectMessages.DELETED_SUCCESS, type : 'success'}));
-
+            yield put(actions.projects.request());
         } catch (e) {
             yield put(actions.projectsDelete.error(e));
             yield put(actions.notification.show({message : projectMessages.DELETED_ERROR, type : 'error'}));
@@ -135,13 +136,7 @@ function* watchLogout() {
 function* watchUsers() {
     while (true) {
         const {request} = yield take(actions.USERS.REQUEST);
-        let query = {
-            page: request.page ? request.page : 1
-        };
-
-        if (request.sort) {
-            query.sort = request.sort;
-        }
+        let query = Object.assign({}, queryString.parse(location.search), request);
 
         try {
             const users = yield call(apiFetch, '/user', {
@@ -150,6 +145,7 @@ function* watchUsers() {
             });
             const pagesCount = Math.ceil(users.data.total / 2 );
             yield put(actions.users.success({users, pagesCount}));
+            yield put(push({pathname:'/users',search:queryString.stringify(query)}));
         } catch (e) {
             yield put(actions.users.error(e))
         }
@@ -204,13 +200,7 @@ function* watchNotices() {
 function* watchProjects() {
     while (true) {
         const {request} = yield take(actions.PROJECTS.REQUEST);
-        let query = {
-            page: request.page ? request.page : 1
-        };
-
-        if (request.sort) {
-            query.sort = request.sort;
-        }
+        let query = Object.assign({}, queryString.parse(location.search), request);
 
         try {
             const projects = yield call(apiFetch, '/project', {
@@ -224,6 +214,7 @@ function* watchProjects() {
             });
             const pagesCount = Math.ceil(projects.data.total / 2 );
             yield put(actions.projects.success({projects, pagesCount}));
+            yield put(push({pathname:'/projects',search:queryString.stringify(query)}));
         } catch (e) {
             yield put(actions.projects.error(e))
         }

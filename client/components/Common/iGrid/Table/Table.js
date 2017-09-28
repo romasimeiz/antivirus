@@ -5,14 +5,8 @@ export default class extends Component {
     constructor(props) {
         super(props);
 
-        this._sort = {
-            key: null,
-            method: false
-        };
-
         this.state = {
-            sortKey: null,
-            sortMethod: null
+            sortKey: props.sortBy ? props.sortBy : null
         };
     }
 
@@ -22,16 +16,11 @@ export default class extends Component {
      */
     sortFunction(key) {
         if (this.isSortable(key)) {
-            if (this._sort.key !== key) {
-                this._sort.key = key;
-                this._sort.method = false;
-            }
-
-            this._sort.method = !this._sort.method;
-
-            this.props.sortFunction((this._sort.method?'':'-') + key);
-
-            this.setState({sortKey:key, sortMethod:this._sort.method?'asc':'desc'});
+            this.setState({
+                    sortKey: this.state.sortKey === key ? '-' + key : key
+                },
+                () => this.props.sortFunction(this.state.sortKey)
+            );
         }
     }
 
@@ -41,7 +30,7 @@ export default class extends Component {
      * @returns {Example.sortFunction|Grid.sortFunction|boolean}
      */
     isSortable(key) {
-        return this.props.sortFunction && (!this.props.sortFields || this.props.sortFields.indexOf(key) != -1);
+        return this.props.sortFields && this.props.sortFields.indexOf(key) != -1;
     }
 
     render() {
@@ -50,8 +39,6 @@ export default class extends Component {
                 { ...this.props }
 
                 sortKey={ this.state.sortKey }
-                sortMethod={ this.state.sortMethod }
-
                 isSortable={ (key) => this.isSortable(key) }
                 sortFunction={ (key) => this.sortFunction(key) }
             />

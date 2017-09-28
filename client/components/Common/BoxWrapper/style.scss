@@ -16,6 +16,14 @@ $borderColor: #e7eaec;
     }
   }
 
+  .ibox-title {
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
   .ibox-content {
     padding: 15px 15px 20px;
     position: relative;

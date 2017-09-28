@@ -9,7 +9,15 @@ const titleRow = function (props) {
                 let className = '';
 
                 if (props.isSortable(key)) {
-                    className = props.sortingRowNameClass + (props.sortKey === key ? '_' + props.sortMethod : '');
+                    let sortMethod = '_asc';
+                    let sortKey = props.sortKey;
+
+                    if (props.sortKey && props.sortKey.indexOf('-') === 0) {
+                        sortKey = props.sortKey.substring(1);
+                        sortMethod = '_desc';
+                    }
+
+                    className = props.sortingRowNameClass + (sortKey === key ? sortMethod : '');
                 }
 
                 return (

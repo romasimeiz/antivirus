@@ -4,12 +4,15 @@ import config from './config';
 import Table from './Table';
 import Paginate from './fragments/paginate';
 import './style.scss';
+import queryString from 'query-string';
 
 export default class extends Component {
     static tableStyle = constants.tableStyle;
 
     constructor(props) {
         super(props);
+
+        this.queryParams = queryString.parse(location.search);
 
         this.resetCache();
     }
@@ -86,18 +89,18 @@ export default class extends Component {
      * Handle page change
      * @param data
      */
-    handlePageChange(data) {
+    onPageChange(data) {
         this.resetCache();
-        this.props.onPageChange(++data.selected);
+        this.props.getData({ page: ++data.selected });
     }
 
     /**
      * Sort function
-     * @param field
+     * @param sort
      */
-    sortFunction(field) {
+    sortFunction(sort) {
         this.resetCache();
-        this.props.sortFunction(field);
+        this.props.getData({ sort: sort });
     }
 
     render() {
@@ -107,14 +110,16 @@ export default class extends Component {
                     { ...config.table }
                     { ...this.props }
                     fields={ this.getFields() }
-                    sortFunction={ (!!this.props.sortFunction ? (field) => this.sortFunction(field) : null) }
+                    sortFunction={ (field) => this.sortFunction(field) }
+                    sortBy={ this.queryParams.sort ? this.queryParams.sort : null }
                 />
                 <Paginate
                     { ...config.pagination }
                     { ...this.props }
+                    forcePage={ this.queryParams.page ? this.queryParams.page - 1 : null }
                     dataTotal={ this.props.dataTotal }
                     dataPerPage={ this.props.dataPerPage }
-                    onPageChange={ (data) => this.handlePageChange(data) }
+                    onPageChange={ (data) => this.onPageChange(data) }
                 />
             </div>
         );
