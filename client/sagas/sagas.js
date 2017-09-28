@@ -160,19 +160,20 @@ function* watchProfileUpdate() {
     while (true) {
         const formId = 'profile-update';
         const {request} = yield take(actions.PROFILE_UPDATE.REQUEST);
+        const userId = request.id;
         startSubmit(formId);
         try {
-        	const file = request.photo_file;
-            const user = yield call(apiFetch, `/user/${request.id}`, {
+            const file = request.photo_file;
+            let user = yield call(apiFetch, `/user/${userId}`, {
                 method: 'PUT',
                 body: JSON.stringify(request),
             });
             yield put(reset());
             yield put(stopSubmit(formId));
-            yield put(actions.profileUpdate.success({user: user.data}));
 
-            yield put()
-
+            const formData = new FormData();
+            formData.append('photo', file);
+            yield put(actions.uploadProfilePhoto.request({file: formData, userId}));
             yield put(push('/home'));
             yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, title : 'Success!'}));
         } catch (err) {
@@ -225,6 +226,25 @@ function* watchProjects() {
     }
 }
 
+function* watchUploadProfilePhoto() {
+    while (true) {
+        const {request} = yield take(actions.UPLOAD_PROFILE_PHOTO.REQUEST);
+        try {
+            const user = yield call(apiFetch, `/user/${request.userId}/uploadfile`, {
+                method: 'POST',
+                body: request.file,
+                headers: {
+                    'Content-Type': 'auto'
+                }
+            });
+            // yield put(actions.uploadProfilePhoto.success('file'));
+            yield put(actions.profileUpdate.success({user: user.data}));
+        } catch (e) {
+            yield put(actions.uploadProfilePhoto.error(e));
+        }
+    }
+}
+
 function* watchFiles() {
     while (true) {
         const action = yield take(actions.FILES.REQUEST);
@@ -255,6 +275,7 @@ export default function* rootSaga() {
         fork(watchProjectEdit),
         fork(watchProjectEditSubmit),
         fork(watchProjectCreate),
+        fork(watchUploadProfilePhoto),
         fork(watchProjectDelete),
         fork(watchProfileUpdate),
         fork(watchNotices),
