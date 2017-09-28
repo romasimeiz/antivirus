@@ -163,7 +163,7 @@ function* watchProfileUpdate() {
         const userId = request.id;
         startSubmit(formId);
         try {
-            const file = request.photo_file;
+            const file = request.photoFile;
             let user = yield call(apiFetch, `/user/${userId}`, {
                 method: 'PUT',
                 body: JSON.stringify(request),
@@ -173,7 +173,11 @@ function* watchProfileUpdate() {
 
             const formData = new FormData();
             formData.append('photo', file);
-            yield put(actions.uploadProfilePhoto.request({file: formData, userId}));
+            if(file) {
+                yield put(actions.uploadProfilePhoto.request({file: formData, userId}));
+            } else {
+                yield put(actions.profileUpdate.success({user: user.data}));
+            }
             yield put(push('/home'));
             yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, title : 'Success!'}));
         } catch (err) {

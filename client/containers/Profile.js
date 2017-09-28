@@ -10,7 +10,7 @@ const ProfileUpdateContainer = reduxForm({
 
 
 const mapStateToProps = state => ({
-    initialValues : localStorage.getItem('user') ? {...JSON.parse(localStorage.getItem('user')), photo_file: 'Hello! I m file'} : state.auth.user,
+    initialValues : localStorage.getItem('user') ? {...JSON.parse(localStorage.getItem('user')), photoFile: ''} : state.auth.user,
     enableReinitialize: true,
 });
 

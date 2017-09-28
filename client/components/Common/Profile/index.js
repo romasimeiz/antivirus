@@ -18,13 +18,7 @@ export default class Profile extends Component {
         this.setState({
             photo: file
         });
-        this.props.change('photo_file', file);
-        //this.props.dispatch(change('profile-update', 'photo_file', 'blblblblblbl'))
-        //const formData = new FormData();
-        //formData.append('photo', file);
-        //cl(formData);
-        //this.props.onDrop({file: formData, userId, name: file.name});
-
+        this.props.change('photoFile', file);
     }
 
     render() {
