@@ -52,7 +52,7 @@ export default class Profile extends Component {
                                     <Field name="phone" className="form-control" component={fieldDecorator} type="text"
                                            placeholder="Phone" label="Phone" />
 
-                                    <Field name="photo_file" className="form-control" component="hidden" type="hidden" value={this.state.photo}/>
+                                    <Field name="photo_file" className="form-control" component="input" type="hidden" value="kjhgkghhghjgjhghj"/>
 
                                     <Dropzone
                                         //ref="dropzone"

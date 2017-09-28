@@ -53,6 +53,37 @@ function* watchProjectEdit() {
     }
 }
 
+function* watchProjectCreate() {
+    while (true) {
+        const formId = 'project-edit';
+        const {request} = yield take(actions.PROJECT_CREATE.REQUEST);
+
+        request.is_active = request.is_active === '' ? false : request.is_active;
+        startSubmit(formId);
+
+        try {
+            const project = yield call(apiFetch, `/project`, {
+                method: 'POST',
+                body: JSON.stringify(request),
+            });
+
+            yield put(reset());
+            yield put(stopSubmit(formId));
+            yield put(push('/projects'));
+            yield put(actions.notification.show({message : projectMessages.CREATED_SUCCESS, title : 'Success!'}));
+        } catch (err) {
+            let allErrors = {};
+            for (let key in err.errors) {
+                if (!err.errors.hasOwnProperty(key)) { continue }
+                allErrors[key] = err.errors[key].join(' ');
+            }
+            yield put(stopSubmit(formId, allErrors));
+            yield put(actions.projectCreate.error(err));
+            yield put(actions.notification.show({message : projectMessages.CREATED_ERROR, title : 'Error!'}));
+        }
+    }
+}
+
 function* watchProjectEditSubmit() {
     while (true) {
         const formId = 'project-edit';
@@ -191,6 +222,7 @@ export default function* rootSaga() {
         fork(watchFiles),
         fork(watchProjectEdit),
         fork(watchProjectEditSubmit),
+        fork(watchProjectCreate),
         fork(watchProjectDelete),
         fork(watchNotices),
     ]
