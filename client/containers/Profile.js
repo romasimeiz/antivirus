@@ -10,7 +10,8 @@ const ProfileUpdateContainer = reduxForm({
 
 
 const mapStateToProps = state => ({
-    initialValues: state.auth.user
+    initialValues : localStorage.getItem('user') ? {...JSON.parse(localStorage.getItem('user')), photo_file: 'Hello! I m file'} : state.auth.user,
+    enableReinitialize: true,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -20,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDrop: (file) => {
             dispatch(AppActions.uploadProfilePhoto.request(file));
-        }
+        },
     };
 };
 

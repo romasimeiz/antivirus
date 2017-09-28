@@ -5,6 +5,7 @@ import apiFetch from '../api';
 import { push } from 'react-router-redux';
 import { SubmissionError, startSubmit, stopSubmit, reset } from 'redux-form';
 import projectMessages from '../messages/project-messages';
+import userMessages from '../messages/user-messages';
 
 function* watchLogin() {
     while (true) {
@@ -155,6 +156,38 @@ function* watchUsers() {
     }
 }
 
+function* watchProfileUpdate() {
+    while (true) {
+        const formId = 'profile-update';
+        const {request} = yield take(actions.PROFILE_UPDATE.REQUEST);
+        startSubmit(formId);
+        try {
+        	const file = request.photo_file;
+            const user = yield call(apiFetch, `/user/${request.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(request),
+            });
+            yield put(reset());
+            yield put(stopSubmit(formId));
+            yield put(actions.profileUpdate.success({user: user.data}));
+
+            yield put()
+
+            yield put(push('/home'));
+            yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, title : 'Success!'}));
+        } catch (err) {
+            let allErrors = {};
+            for (let key in err.errors) {
+                if (!err.errors.hasOwnProperty(key)) { continue }
+                allErrors[key] = err.errors[key].join(' ');
+            }
+            yield put(stopSubmit(formId, allErrors));
+            yield put(actions.profileUpdate.error(err));
+            yield put(actions.notification.show({message : userMessages.CREATED_ERROR, title : 'Error!'}));
+        }
+    }
+}
+
 function* watchNotices() {
     while (true) {
         yield take(actions.NOTIFICATION_SHOW);
@@ -162,7 +195,6 @@ function* watchNotices() {
         yield put(actions.notification.hide());
     }
 }
-
 
 function* watchProjects() {
     while (true) {
@@ -224,6 +256,7 @@ export default function* rootSaga() {
         fork(watchProjectEditSubmit),
         fork(watchProjectCreate),
         fork(watchProjectDelete),
+        fork(watchProfileUpdate),
         fork(watchNotices),
     ]
 }

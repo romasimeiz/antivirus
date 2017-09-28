@@ -18,7 +18,8 @@ export default class Profile extends Component {
         this.setState({
             photo: file
         });
-
+        this.props.change('photo_file', file);
+        //this.props.dispatch(change('profile-update', 'photo_file', 'blblblblblbl'))
         //const formData = new FormData();
         //formData.append('photo', file);
         //cl(formData);
@@ -43,7 +44,7 @@ export default class Profile extends Component {
                             </div>
                             <div className="ibox-content profile-content">
                                 <form onSubmit={handleSubmit(onSubmit)} className="m-t">
-                                    <Field label="Project name" name="name" className="form-control" component={fieldDecorator} type="text"
+                                    <Field label="User name" name="name" className="form-control" component={fieldDecorator} type="text"
                                            placeholder="User Name" />
 
                                     <Field name="email" className="form-control" component={fieldDecorator} type="text" label="Email"
@@ -51,8 +52,6 @@ export default class Profile extends Component {
 
                                     <Field name="phone" className="form-control" component={fieldDecorator} type="text"
                                            placeholder="Phone" label="Phone" />
-
-                                    <Field name="photo_file" className="form-control" component="input" type="hidden" value="kjhgkghhghjgjhghj"/>
 
                                     <Dropzone
                                         //ref="dropzone"
