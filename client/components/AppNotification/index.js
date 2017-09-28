@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import  {Notification} from 'react-notification'
+import _ from 'lodash';
 import './style.scss';
 
 export default class AppNotification extends Component {
     render() {
-        const {properties} = this.props;
+        const {properties, activeClass} = this.props;
+        const className = properties.isActive ? activeClass : 'pace-inactive';
+        const containerClass = `toast toast-${properties.type}`;
         return (
-            <Notification
-                isActive={properties.isActive}
-                message={properties.message}
-                title={properties.title}
-            />
+            <div id="toast-container" className={className} aria-live="polite" role="alert">
+                <div className={containerClass} style={{opacity: "0.8"}}>
+                    <div className="toast-progress" style={{width: "0%"}}>
+                    </div>
+                    <div className="toast-message">
+                        <b>{ _.upperFirst(properties.type) }!</b><br/>
+                        {properties.message}
+                    </div>
+                </div>
+            </div>
         );
     }
 }

@@ -1,13 +1,9 @@
 import * as actions from "../actions/actions";
 
 const initialState = {
-    permanentNotification: false,
     message:"Notification",
-    action:null,
-    title:"Title!",
-    dismissAfter: 2000,
-    onDismiss: () => { return false },
-    // onClick: () => {return false},
+    type:'error',
+    isActive:false,
 };
 
 const notification = (state = initialState, action) => {

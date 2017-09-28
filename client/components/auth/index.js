@@ -6,6 +6,7 @@ import Footer from '../Common/Footer';
 import PageHeading from '../Common/PageHeading';
 import AppNotification from '../AppNotification';
 import Dialog from '../../containers/Dialog';
+import Notifications from '../../components/AppNotification/constants';
 
 
 import './style.scss';
@@ -66,7 +67,7 @@ export default class Auth extends Component {
 
         return (
             <div className={ bodyClassName }>
-                <AppNotification properties={ notification } />
+                <AppNotification properties={ notification } activeClass={Notifications.tableStyle.TOP_RIGHT} />
                 <Sidebar user={ auth.user } fields={ auth.sideBar } show={ this.state.show } />
                 <div id="page-wrapper" className="gray-bg dashbard-1">
                     <Header handleLogout={ handleLogout } toggle={ this.toggleSidebar } />

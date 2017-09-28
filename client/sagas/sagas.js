@@ -31,11 +31,11 @@ function* watchProjectDelete() {
                 method: 'GET',
             });
             yield put(actions.projectsDelete.success(project));
-            yield put(actions.notification.show({message : projectMessages.DELETED_SUCCESS, title : 'Success!'}));
+            yield put(actions.notification.show({message : projectMessages.DELETED_SUCCESS, type : 'success'}));
 
         } catch (e) {
             yield put(actions.projectsDelete.error(e));
-            yield put(actions.notification.show({message : projectMessages.DELETED_ERROR, title : 'Error!'}));
+            yield put(actions.notification.show({message : projectMessages.DELETED_ERROR, type : 'error'}));
         }
     }
 }
@@ -71,7 +71,7 @@ function* watchProjectCreate() {
             yield put(reset());
             yield put(stopSubmit(formId));
             yield put(push('/projects'));
-            yield put(actions.notification.show({message : projectMessages.CREATED_SUCCESS, title : 'Success!'}));
+            yield put(actions.notification.show({message : projectMessages.CREATED_SUCCESS, type : 'success'}));
         } catch (err) {
             let allErrors = {};
             for (let key in err.errors) {
@@ -80,7 +80,7 @@ function* watchProjectCreate() {
             }
             yield put(stopSubmit(formId, allErrors));
             yield put(actions.projectCreate.error(err));
-            yield put(actions.notification.show({message : projectMessages.CREATED_ERROR, title : 'Error!'}));
+            yield put(actions.notification.show({message : projectMessages.CREATED_ERROR, type : 'error'}));
         }
     }
 }
@@ -102,7 +102,7 @@ function* watchProjectEditSubmit() {
 
             yield put(reset());
             yield put(stopSubmit(formId));
-            yield put(actions.notification.show({message : projectMessages.UPDATED_SUCCESS, title : 'Success!'}));
+            yield put(actions.notification.show({message : projectMessages.UPDATED_SUCCESS, type : 'success'}));
             yield put(push('/projects'));
         } catch (err) {
             let allErrors = {};
@@ -112,7 +112,7 @@ function* watchProjectEditSubmit() {
             }
             yield put(stopSubmit(formId, allErrors));
             yield put(actions.projectEditSubmit.error(err));
-            yield put(actions.notification.show({message : projectMessages.UPDATED_ERROR, title : 'Error!'}));
+            yield put(actions.notification.show({message : projectMessages.UPDATED_ERROR, type : 'error'}));
         }
     }
 }
@@ -179,7 +179,7 @@ function* watchProfileUpdate() {
                 yield put(actions.profileUpdate.success({user: user.data}));
             }
             yield put(push('/home'));
-            yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, title : 'Success!'}));
+            yield put(actions.notification.show({message : userMessages.CREATED_SUCCESS, type : 'success'}));
         } catch (err) {
             let allErrors = {};
             for (let key in err.errors) {
@@ -188,7 +188,7 @@ function* watchProfileUpdate() {
             }
             yield put(stopSubmit(formId, allErrors));
             yield put(actions.profileUpdate.error(err));
-            yield put(actions.notification.show({message : userMessages.CREATED_ERROR, title : 'Error!'}));
+            yield put(actions.notification.show({message : userMessages.CREATED_ERROR, type : 'error'}));
         }
     }
 }
@@ -241,7 +241,6 @@ function* watchUploadProfilePhoto() {
                     'Content-Type': 'auto'
                 }
             });
-            // yield put(actions.uploadProfilePhoto.success('file'));
             yield put(actions.profileUpdate.success({user: user.data}));
         } catch (e) {
             yield put(actions.uploadProfilePhoto.error(e));
