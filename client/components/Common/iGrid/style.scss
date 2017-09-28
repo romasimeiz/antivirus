@@ -32,6 +32,23 @@ $borderColor: #e7eaec;
     .actions {
       text-align: right;
     }
+
+    &.dataTable {
+      thead {
+        .sorting {
+          &,
+          &_asc,
+          &_desc {
+            &:after {
+              display: inline-block;
+              vertical-align: middle;
+              position: static;
+              margin-left: 8px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

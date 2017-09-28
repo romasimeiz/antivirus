@@ -16,6 +16,7 @@ const button = function (props) {
             <NavLink
                 className={ className }
                 to={ props.link }
+                disabled={ props.disabled }
             >
                 <Icon { ...props } />
                 <span>{ buttonContent }</span>
@@ -27,6 +28,7 @@ const button = function (props) {
         <button
             className={ className }
             onClick={ props.onClick ? props.onClick : null }
+            disabled={ props.disabled }
         >
             <Icon { ...props } />
             <span>{ buttonContent }</span>

@@ -8,7 +8,7 @@ const actions = function (props) {
         <div className="btn-group btn-group-xs">
             <View link={ props.link } />
             <Edit link={ `${link}update` } />
-            <Delete onClick={ props.deleteClickHandler } />
+            <Delete iconClass="fa fa-ban" name="Disable" onClick={ props.deleteClickHandler } disabled={ !props.is_active } />
         </div>
     );
 };
