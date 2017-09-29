@@ -6,26 +6,21 @@ const initialState = {
     projectsGrid: [
         {
             name: 'ID',
-            className: '',
-            mapping: 'id',
+            mapping: 'id'
         },
         {
             name: 'Name',
-            className: '',
             mapping: 'name'
         },
         {
             name: 'User',
-            className: '',
             mapping: 'user.name'
         },
         {
             name: 'Script URL',
-            className: '',
             mapping: 'script_url'
         }
-    ],
-    actions: {types: ['update', 'delete'], entity: 'projects'}
+    ]
 };
 
 const projects = (state = initialState, action) => {
@@ -47,6 +42,32 @@ const projects = (state = initialState, action) => {
                 errorMessage: action.errorMessage,
                 isFetching: false
             });
+
+        case actions.PROJECT_DELETE.SUCCESS:
+            let newState = state;
+            newState.projects.data.map(function (item, key) {
+                if (item.id === action.response.data.id) {
+                    newState.projects.data[key].is_active = action.response.data.is_active;
+                    return false;
+                }
+            });
+
+            return {
+                ...newState,
+                isFetching: false
+            };
+        case actions.PROJECT_DELETE.FAILURE:
+            return {
+                ...state,
+                errorMessage: action.errorMessage,
+                isFetching: false
+            };
+        case actions.PROJECT_DELETE.REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            };
+
         default:
             return state
     }

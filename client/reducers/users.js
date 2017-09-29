@@ -6,20 +6,17 @@ const initialState = {
     usersGrid: [
         {
             name: 'ID',
-            className: '',
             mapping: 'id'
         },
         {
             name: 'Name',
-            className: '',
             mapping: 'name'
         },
         {
             name: 'Email',
-            className: '',
             mapping: 'email'
         }
-    ],
+    ]
 };
 
 const users = (state = initialState, action) => {

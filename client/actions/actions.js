@@ -21,6 +21,7 @@ export const NOTIFICATION_SHOW   = 'NOTIFICATION_SHOW';
 export const NOTIFICATION_HIDE   = 'NOTIFICATION_HIDE';
 export const DIALOG_SHOW = 'DIALOG_SHOW';
 export const DIALOG_HIDE = 'DIALOG_HIDE';
+export const REDIRECT = 'REDIRECT';
 
 export const login = {
     // Notify the intent to fetch recipes
@@ -129,4 +130,8 @@ export const notification = {
 export const dialog = {
     show: response => ({type: DIALOG_SHOW, response}),
     hide: response => ({type: DIALOG_HIDE, response}),
+};
+
+export const redirect = {
+    go: request => ({type: REDIRECT, request})
 };

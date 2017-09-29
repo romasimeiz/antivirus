@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Users from '../components/Users';
 import * as AppActions from '../actions/actions';
+import queryString from 'query-string';
 
 const mapStateToProps = state => ({
     title: 'Users',
@@ -16,7 +17,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         getData(data = {}) {
-            dispatch(AppActions.users.request(data));
+            let params = Object.assign({}, queryString.parse(location.search), data);
+
+            dispatch(AppActions.users.request(params));
+
+            if (Object.keys(params).length > 0) {
+                dispatch(AppActions.redirect.go({params: params}));
+            }
         }
     };
 };

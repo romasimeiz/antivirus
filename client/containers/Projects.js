@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import Projects from '../components/Projects';
 import * as AppActions from '../actions/actions';
+import queryString from 'query-string';
 
 const mapStateToProps = state => ({
     title: 'Projects',
@@ -17,7 +18,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         getData(data = {}) {
-            dispatch(AppActions.projects.request(data));
+            let params = Object.assign({}, queryString.parse(location.search), data);
+
+            dispatch(AppActions.projects.request(params));
+
+            if (Object.keys(params).length > 0) {
+                dispatch(AppActions.redirect.go({params: params}));
+            }
         },
         dialogShow(content, confirm) {
             dispatch(AppActions.dialog.show({content: content, confirm: confirm}));
