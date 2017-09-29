@@ -1,6 +1,6 @@
 export default {
     wrapper: {
-        wrapperClass: 'box-wrapper ibox float-e-margins dataTables_wrapper',
+        wrapperClass: 'box-wrapper ibox float-e-margins dataTables_wrapper animated fadeInRight',
         withoutTitleClass: 'without-title',
         headerClass: 'ibox-title',
         contentClass: 'ibox-content',
